@@ -1,5 +1,5 @@
 include:
-  - jcu.postgresql
+  - postgresql
 
 Install PostGIS Packages:
   pkg.installed:
