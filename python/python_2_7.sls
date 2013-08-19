@@ -21,7 +21,6 @@ python_2_7 source:
     - cwd: /tmp/
     # Don't do this if python2.7 is already installed
     - unless: "[ -x '/usr/local/bin/python2.7' ]"
-#    - unless: "[ -f '/tmp/Python-2.7.5.tar.bz2' ]"
 
 python_2_7 decompress:
   cmd.watch:

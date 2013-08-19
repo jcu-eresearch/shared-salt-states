@@ -10,3 +10,17 @@ Install PostgreSQL Packages:
       - postgresql92-server
     - require:
       - pkg: Install PostgreSQL Repository
+
+Init PostgreSQL:
+  cmd.wait:
+    - name: service postgresql-9.2 initdb
+    - watch:
+      - pkg: Install PostgreSQL Packages
+
+PostgreSQL Service:
+  service:
+    - name: postgresql-9.2
+    - running
+    - enable: True
+    - watch:
+      - cmd: Init PostgreSQL
