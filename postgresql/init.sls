@@ -11,6 +11,8 @@ Install PostgreSQL Packages:
     - require:
       - pkg: Install PostgreSQL Repository
 
+# TODO - Add /usr/pgsql-9.2/bin/ to PATH
+
 Init PostgreSQL:
   cmd.wait:
     - name: service postgresql-9.2 initdb
