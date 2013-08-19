@@ -1,0 +1,2 @@
+php-pgsql:
+  pkg.installed
