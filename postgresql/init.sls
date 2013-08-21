@@ -11,7 +11,21 @@ Install PostgreSQL Packages:
     - require:
       - pkg: Install PostgreSQL Repository
 
-# TODO - Add /usr/pgsql-9.2/bin/ to PATH
+/etc/profile.d/postgresql_path.sh:
+  file.managed:
+    - source:
+      - salt://jcu/postgresql/postgresql_path.sh
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: Install PostgreSQL Packages
+
+Add PostgreSQL to PATH:
+  cmd.run:
+    - name: source /etc/profile.d/postgresql_path.sh
+    - require:
+      - file: /etc/profile.d/postgresql_path.sh
 
 Init PostgreSQL:
   cmd.wait:
