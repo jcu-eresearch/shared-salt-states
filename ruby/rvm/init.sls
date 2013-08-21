@@ -5,10 +5,24 @@ rvm:
   group:
     - present
   user.present:
-    - gid: rvm
+    - fullname: rvm
+    - gid_from_name: True
     - home: /home/rvm
+    - shell: /bin/bash
+    - groups:
+      - wheel
+      - rvm
     - require:
       - group: rvm
+      - file: /etc/sudoers.d/rvm
+
+/etc/sudoers.d/rvm:
+  file.managed:
+    - source:
+      - salt://jcu/ruby/rvm/rvm_sudoers
+    - user: root
+    - group: root
+    - mode: 330
 
 rvm-deps:
   pkg.installed:
