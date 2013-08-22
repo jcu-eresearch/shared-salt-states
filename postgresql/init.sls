@@ -40,3 +40,13 @@ PostgreSQL Service:
     - enable: True
     - watch:
       - cmd: Init PostgreSQL
+
+/var/lib/pgsql/9.2/data/pg_hba.conf:
+  file.managed:
+    - source:
+      - salt://jcu/postgresql/pg_hba.conf
+    - user: postgres
+    - group: postgres
+    - mode: 600
+    - require:
+      - cmd: Init PostgreSQL
