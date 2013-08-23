@@ -16,6 +16,15 @@ rvm:
       - group: rvm
       - file: /etc/sudoers.d/rvm
 
+/home/rvm:
+  file.directory:
+    - user: rvm
+    - dir_mode: 755
+    - recurse:
+      - mode
+    - require:
+      - user: rvm
+
 /etc/sudoers.d/rvm:
   file.managed:
     - source:
