@@ -1,3 +1,6 @@
+exclude:
+  - sls: .pgdg
+
 elgis:
   pkg.installed:
     - sources:
