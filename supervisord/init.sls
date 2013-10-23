@@ -1,10 +1,13 @@
 include:
     - jcu.repositories.epel
+    - jcu.repositories.eresearch
 
 supervisor:
   pkg.installed:
+    - fromrepo: jcu-eresearch
     - require:
-      - pkg: epel 
+      - pkgrepo: jcu-eresearch
+      - pkg: epel
 
 supervisord:
   service:
@@ -12,3 +15,6 @@ supervisord:
     - enable: True
     - require:
       - pkg: supervisor
+  supervisord:
+    - reread
+    
