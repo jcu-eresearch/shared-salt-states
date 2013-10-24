@@ -15,6 +15,3 @@ supervisord:
     - enable: True
     - require:
       - pkg: supervisor
-  supervisord:
-    - reread
-    
