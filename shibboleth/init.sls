@@ -1,7 +1,3 @@
-include:
-   - jcu.repositories.eresearch
-   - jcu.supervisord
-
 {% set shibboleth_user = salt['pillar.get']('shibboleth:user', 'shibd') %}
 {% set shibboleth_group = salt['pillar.get']('shibboleth:group', 'shibd') %}
 
@@ -15,24 +11,44 @@ Shibboleth package repository:
       - group: root
       - mode: 644
 
-# Install customised version supporting FastCGI
 shibboleth:
-   pkg:
-      - installed
-      - fromrepo: jcu-eresearch
+   pkg.installed:
       - require:
-         - pkgrepo: jcu-eresearch 
          - file: Shibboleth package repository 
-   service:
-      - running
+   service.running:
       - name: shibd
       - enable: True
       - require:
          - pkg: shibboleth 
 
+shibboleth configuration:
+   file.managed:
+      - name: /etc/shibboleth/shibboleth2.xml
+      - source: salt://jcu/shibboleth/shibboleth2.xml
+      - user: {{ shibboleth_user }}
+      - group: {{ shibboleth_group }}
+      - mode: 644
+      - template: jinja
+      - defaults: 
+         shibboleth: {{ pillar['shibboleth']|yaml }}
+      - require:
+         - file: shibboleth identity
+         - file: /etc/shibboleth/aaf-metadata-cert.pem
+      - watch_in:
+         - service: shibboleth
+
+/etc/shibboleth/aaf-metadata-cert.pem:
+   file.managed:
+      - source: https://ds.aaf.edu.au/distribution/metadata/aaf-metadata-cert.pem
+      - source_hash: sha256=18de1f447181033c2b91726919f51d21214f36bb450eb5988d3ebb19cd2e9ec5 
+      - user: {{ shibboleth_user }}
+      - group: {{ shibboleth_group }}
+      - mode: 644
+      - require:
+         - pkg: shibboleth
+
 # Generate identity or manage identity files, if provided
 {% if salt['pillar.get']('shibboleth:certificate', '') %}
-# XXX This doesn't work because we can't reference pillar files...
 shibboleth certificate:
    file.managed:
       - name: /etc/shibboleth/sp-cert.pem 
@@ -40,6 +56,10 @@ shibboleth certificate:
       - user: {{ shibboleth_user }}
       - group: {{ shibboleth_group }}
       - mode: 644
+      - require:
+         - pkg: shibboleth
+      - require_in:
+         - service: shibboleth
 
 shibboleth identity:
    file.managed:
@@ -50,6 +70,8 @@ shibboleth identity:
       - mode: 600
       - require:
          - file: shibboleth certificate
+      - require_in:
+         - service: shibboleth
 {% else %}
 shibboleth identity creation:
    cmd.run:
@@ -58,49 +80,13 @@ shibboleth identity creation:
                 -u '{{ shibboleth_user }}'
                 -g '{{ shibboleth_group }}'
                 -h '{{ pillar['shibboleth']['host'] }}'
-                -e '{{ pillar['shibboleth']['entityid'] }}'
+                -e '{{ pillar['shibboleth']['entityID'] }}'
       - unless: test -r /etc/shibboleth/sp-cert.pem || test -r /etc/shibboleth/sp-key.pem 
 
 shibboleth identity:
     file.exists:
       - name: /etc/shibboleth/sp-cert.pem
+      - require:
+           - cmd: shibboleth identity creation
 {% endif %}
 
-shibboleth configuration:
-   file.managed:
-      - name: /etc/shibboleth/shibboleth2.xml
-      - contents: 'Test'
-      - mode: 644
-      - require:
-         - file: shibboleth identity
-
-# Manage FastCGI applications
-/opt/shibboleth:
-    file.directory:
-      - user: {{ shibboleth_user }}
-      - group: {{ shibboleth_group }}
-
-/etc/supervisord.d/shibboleth-fastcgi.ini:
-   file.managed:
-      - source: salt://jcu/shibboleth/shibboleth-fastcgi.ini
-      - user: root
-      - group: root
-      - mode: 644
-      - requires:
-         - pkg: supervisord
-         - pkg: shibboleth
-         - file: /opt/shibboleth
-      - watch_in:
-         - service: supervisord
-
-shibauthorizer:
-   supervisord.running:
-      - update: true
-      - watch:
-         - file: /etc/supervisord.d/shibboleth-fastcgi.ini
-
-shibresponder:
-   supervisord.running:
-      - update: true
-      - watch:
-         - file: /etc/supervisord.d/shibboleth-fastcgi.ini
