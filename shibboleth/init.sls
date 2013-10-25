@@ -29,11 +29,10 @@ shibboleth configuration:
       - group: {{ shibboleth_group }}
       - mode: 644
       - template: jinja
-      - defaults: 
-         shibboleth: {{ pillar['shibboleth']|yaml }}
       - require:
          - file: shibboleth identity
          - file: /etc/shibboleth/aaf-metadata-cert.pem
+         - file: /etc/shibboleth/attribute-map.xml
       - watch_in:
          - service: shibboleth
 
@@ -43,6 +42,24 @@ shibboleth configuration:
       - source_hash: sha256=18de1f447181033c2b91726919f51d21214f36bb450eb5988d3ebb19cd2e9ec5 
       - user: {{ shibboleth_user }}
       - group: {{ shibboleth_group }}
+      - mode: 644
+      - require:
+         - pkg: shibboleth
+
+/etc/shibboleth/attribute-map.xml:
+   file.managed:
+      - source: salt://jcu/shibboleth/attribute-map.xml
+      - user: {{ shibboleth_user }}
+      - group: {{ shibboleth_group }}
+      - mode: 644
+      - require:
+         - pkg: shibboleth
+
+/usr/share/shibboleth/logo.png:
+   file.managed:
+      - source: salt://jcu/shibboleth/shibboleth-logo.png
+      - user: root
+      - group: root
       - mode: 644
       - require:
          - pkg: shibboleth

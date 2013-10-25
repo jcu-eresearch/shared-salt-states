@@ -1,3 +1,4 @@
+{% set shibboleth = pillar['shibboleth'] %}
 <SPConfig xmlns="urn:mace:shibboleth:2.0:native:sp:config"
     xmlns:conf="urn:mace:shibboleth:2.0:native:sp:config"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
@@ -33,7 +34,7 @@
         -->
         <Sessions lifetime="28800" timeout="3600" checkAddress="false" 
                   relayState="ss:mem" handlerSSL="true"
-                  handlerURL="/Shibboleth.sso"> 
+                  handlerURL="https://{{ shibboleth['host'] }}/Shibboleth.sso"> 
 
             <!--
             Configures SSO for a default IdP. To allow for >1 IdP, remove

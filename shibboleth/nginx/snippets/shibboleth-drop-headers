@@ -1,0 +1,37 @@
+#Use this in any Shibboleth-protected location with:
+#include conf.d/snippets/shibboleth-drop-headers
+#
+#These don't currently work because * isn't supported
+#more_clear_input_headers 
+#    'Variable-*'
+#    'Shib-*';
+more_clear_input_headers 
+    Shib-Application-Id
+    Shib-Authentication-Instant
+    Shib-Authentication-Method
+    Shib-Authncontext-Class
+    Shib-Identity-Provider
+    Shib-Session-Id
+    Shib-Session-Index
+    Remote-User
+    Auth-Type
+    auEduPersonSharedToken
+    Variable-auEduPersonSharedToken
+    commonName
+    Variable-commonName
+    displayName
+    Variable-displayName
+    eduPersonAffiliation
+    Variable-eduPersonAffiliation
+    eduPersonTargetedID
+    Variable-eduPersonTargetedID
+    email
+    Variable-email
+    organizationName
+    Variable-organizationName
+    persistent-id
+    Variable-persistent-id
+    Unscoped-Affiliation
+    Variable-Unscoped-Affiliation
+    Transient-Name
+    Variable-Transient-Name;
