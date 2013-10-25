@@ -1,11 +1,15 @@
-include:
-   - jcu.repositories.eresearch
+nginx-repository:
+   pkgrepo.managed:
+      - name: nginx
+      - humanname: nginx repo
+      - baseurl: http://nginx.org/packages/{{ 'centos' if grains['os'] == 'CentOS' else 'rhel' }}/{{ grains['osmajorrelease'][0] }}/$basearch/ 
+      - gpgcheck: 0
+      - enabled: 1 
 
 nginx:
-   pkg.installed:
-      - fromrepo: jcu-eresearch
+   pkg.installed: 
       - require:
-          - pkgrepo: jcu-eresearch
+           - pkgrepo: nginx-repository
    service.running:
       - enable: True
       - reload: True
