@@ -16,6 +16,14 @@ nginx:
       - watch:
           - pkg: nginx
 
+# Remove default files
+{% for path in ['/etc/nginx/conf.d/default.conf', '/etc/nginx/conf.d/example_ssl.conf'] %}
+{{ path }}:
+   file.absent:
+      - require:
+        - pkg: nginx
+{% endfor %}
+
 # Firewall configuration
 http iptables:
    module.run:

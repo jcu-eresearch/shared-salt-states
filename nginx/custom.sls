@@ -1,5 +1,5 @@
 include:
-   - .
+   - jcu.nginx
    - jcu.repositories.eresearch
 
 extend:
