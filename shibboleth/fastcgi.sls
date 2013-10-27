@@ -14,7 +14,7 @@ extend:
          - fromrepo: jcu-eresearch
          - require:
             - pkgrepo: jcu-eresearch 
-            - file: Shibboleth package repository 
+            - pkgrepo: Shibboleth package repository 
 
 # Nginx snippets and configuration
 /etc/nginx/conf.d/:
@@ -32,6 +32,8 @@ shibboleth fastcgi:
       - user: {{ shibboleth_user }}
       - group: {{ shibboleth_group }}
       - makedirs: true
+      - require:
+        - pkg: shibboleth
     user.present:
        - name: nginx
        - groups:
@@ -39,6 +41,7 @@ shibboleth fastcgi:
           - shibd
        - require:
           - pkg: nginx
+          - pkg: shibboleth
        - watch_in:
           - service: nginx
 
@@ -48,11 +51,10 @@ shibboleth fastcgi:
       - user: root
       - group: root
       - mode: 644
-      - requires:
+      - require:
          - user: shibboleth fastcgi
-         - pkg: supervisord
-         - pkg: shibboleth
-         - file: /opt/shibboleth
+         - pkg: supervisor
+         - file: shibboleth fastcgi
       - watch_in:
          - service: supervisord
 

@@ -3,18 +3,24 @@
 
 # For base packages
 Shibboleth package repository:
-   file.managed:
-      - name: /etc/yum.repos.d/security:shibboleth.repo
-      - source: http://download.opensuse.org/repositories/security://shibboleth/RHEL_6/security:shibboleth.repo
-      - source_hash: sha256=4279b0d9725d94f5ceeb9b4f10f4e9e7c0c306752605b154adaff5343b3236ab
-      - user: root
-      - group: root
-      - mode: 644
+   pkgrepo.managed:
+      - name: security_shibboleth 
+      - humanname: Shibboleth
+      - gpgcheck: 0
+      - enabled: 1 
+      {% if grains['os'] == 'CentOS' %}
+      - baseurl: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/
+      - gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/repodata/repomd.xml.key 
+      {% else %}
+      - baseurl: http://download.opensuse.org/repositories/security:/shibboleth/RHEL_6/
+      - gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/RHEL_6/repodata/repomd.xml.key 
+      {% endif %}
 
 shibboleth:
    pkg.installed:
+      - refresh: true
       - require:
-         - file: Shibboleth package repository 
+         - pkgrepo: Shibboleth package repository 
    service.running:
       - name: shibd
       - enable: True
@@ -30,6 +36,7 @@ shibboleth configuration:
       - mode: 644
       - template: jinja
       - require:
+         - pkg: shibboleth
          - file: shibboleth identity
          - file: /etc/shibboleth/aaf-metadata-cert.pem
          - file: /etc/shibboleth/attribute-map.xml
@@ -99,6 +106,8 @@ shibboleth identity creation:
                 -h '{{ pillar['shibboleth']['host'] }}'
                 -e '{{ pillar['shibboleth']['entityID'] }}'
       - unless: test -r /etc/shibboleth/sp-cert.pem || test -r /etc/shibboleth/sp-key.pem 
+      - require:
+         - pkg: shibboleth
 
 shibboleth identity:
     file.exists:
