@@ -1,6 +1,10 @@
+# pkg.group_install is not yet available as a state.
+# See https://github.com/saltstack/salt/pull/3524
 Development Tools:
-# pkg.group_install is not yet avaiable as a state.
-# This may be ready in salt 0.17
-# For now, just use cmd.run
   cmd.run:
     - name: yum groupinstall -y "Development Tools"
+
+#  module.run:
+#    - name: salt.modules.yumpkg.group_install
+#    - groups: 
+#        - Development Tools
