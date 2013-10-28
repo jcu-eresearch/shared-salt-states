@@ -9,5 +9,6 @@ Install PostGIS2_92 Packages:
     - require:
       - pkg: pgdg-92
       - pkg: Install PostgreSQL92 Server Packages
+    - refresh: True
     - watch_in:
       - service: postgresql-9.2
