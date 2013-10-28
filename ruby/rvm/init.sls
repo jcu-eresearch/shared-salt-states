@@ -68,4 +68,4 @@ mri-deps:
       - subversion
       - ruby
     - require:
-      - cmd: Development Tools
+      - module: Development Tools

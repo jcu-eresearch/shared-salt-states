@@ -12,7 +12,7 @@ python_2_7 package dependencies:
       - readline-devel
       - tk-devel
     - require:
-      - cmd: Development Tools
+      - module: Development Tools
 
 # Starts a chain of events which results in the altinstall of python to /usr/local
 python_2_7 source:
