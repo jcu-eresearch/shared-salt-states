@@ -24,6 +24,7 @@ shibboleth:
    service.running:
       - name: shibd
       - enable: True
+      - reload: True
       - require:
          - pkg: shibboleth 
 
