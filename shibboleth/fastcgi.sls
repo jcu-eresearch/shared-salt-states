@@ -61,11 +61,15 @@ shibboleth fastcgi:
 shibauthorizer:
    supervisord.running:
       - update: true
+      - restart: true
       - watch:
          - file: /etc/supervisord.d/shibboleth-fastcgi.ini
+         - service: supervisord
 
 shibresponder:
    supervisord.running:
       - update: true
+      - restart: true
       - watch:
          - file: /etc/supervisord.d/shibboleth-fastcgi.ini
+         - service: supervisord

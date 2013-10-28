@@ -6,21 +6,27 @@
     xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
     clockSkew="180">
 
-    <RequestMapper type="XML">
-        <RequestMap>
-            <Host name="{{ shibboleth['host'] }}"
-                  applicationId="{{ shibboleth['host'] }}"
-                  authType="shibboleth"
-                  redirectToSSL="443"> 
-                {% for path, values in shibboleth['paths'].items() %}
+    <RequestMapper type="Native">
+        <RequestMap applicationId="default">
+            {% for host, host_values in shibboleth['hosts'].items() %}
+            <Host name="{{ host }}"
+                {% if 'applicationId' in host_values %}
+                  applicationId="{{ host_values['applicationId'] }}"
+                {% endif %}
+                  authType="{{ host_values.get('authType', 'shibboleth') }}"
+                  redirectToSSL="{{ host_values.get('redirectToSSL', '443') }}"> 
+                {% for path, path_values in host_values['paths'].items() %}
                 <Path name="{{ path }}"
-                      requireSession="{{ values['requireSession'] }}" />
+                      requireSession="{{ path_values['requireSession'] }}" />
                 {% endfor %}
             </Host>
+            {% endfor %}
         </RequestMap>
     </RequestMapper>
 
-    <ApplicationDefaults entityID="{{ shibboleth['entityID'] }}"
+    <ApplicationDefaults id="default"
+                         policyId="default" 
+                         entityID="{{ shibboleth['entityID'] }}"
                          REMOTE_USER="{{ shibboleth.get('REMOTE_USER', 'eppn persistent-id targeted-id') }}">
 
         <!--
@@ -34,7 +40,7 @@
         -->
         <Sessions lifetime="28800" timeout="3600" checkAddress="false" 
                   relayState="ss:mem" handlerSSL="true"
-                  handlerURL="https://{{ shibboleth['host'] }}/Shibboleth.sso"> 
+                  handlerURL="/Shibboleth.sso"> 
 
             <!--
             Configures SSO for a default IdP. To allow for >1 IdP, remove
