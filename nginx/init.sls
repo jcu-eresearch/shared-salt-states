@@ -15,6 +15,17 @@ nginx:
       - reload: True
       - watch:
           - pkg: nginx
+   file.managed:
+      - name: /etc/nginx/nginx.conf
+      - source: salt://jcu/nginx/nginx.conf 
+      - user: nginx
+      - group: nginx
+      - mode: 644
+      - template: jinja
+      - require:
+          - pkg: nginx
+      - watch_in:
+          - service: nginx
 
 # Remove default files
 {% for path in ['/etc/nginx/conf.d/default.conf', '/etc/nginx/conf.d/example_ssl.conf'] %}
