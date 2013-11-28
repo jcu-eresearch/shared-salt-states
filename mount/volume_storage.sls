@@ -3,6 +3,10 @@
 #You should consider running this state on its own to verify execution:
 #
 #salt-call --local state.sls 'jcu.mount.volume_storage' 
+
+include:
+   - jcu.mount
+
 {% for device, settings in pillar['volumes'].items() %}
 
 #Return code from ``read`` is 0 (True) if something, 1 (False) if nothing
@@ -19,6 +23,7 @@
    cmd.run:
       - name: parted -s {{ device }} mklabel msdos
       - require:
+           - pkg: parted
            - file: {{ device }}
       - unless: {{ check_exists }} 
 
@@ -27,6 +32,7 @@
    cmd.run:
       - name: parted -s {{ device }} mkpart primary ext4 2048s 100%
       - require:
+           - pkg: parted
            - cmd: {{ device }} partition table
       - unless: {{ check_exists }} 
 
