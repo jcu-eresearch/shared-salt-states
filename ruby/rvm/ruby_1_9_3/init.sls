@@ -3,6 +3,7 @@ include:
 
 ruby-1.9.3:
   rvm.installed:
+    - name: ruby-1.9.3-p484
     - default: True
     - runas: rvm
     - require:

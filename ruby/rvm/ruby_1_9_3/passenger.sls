@@ -1,5 +1,6 @@
 include:
   - jcu.ruby.rvm.ruby_1_9_3
+  - jcu.repositories.remi
 
 # TODO -> Generalise to use pillar to specify version (of gem)
 passenger-4_0_20:
@@ -83,3 +84,13 @@ save iptables:
   module.wait:
     - name: iptables.save
     - filename: /etc/sysconfig/iptables
+
+Install nginx php support packages:
+  pkg.installed:
+    - pkgs:
+      - php-fpm
+      - php-common
+    - require:
+      - pkg: remi
+    - watch_in:
+      - service: nginx
