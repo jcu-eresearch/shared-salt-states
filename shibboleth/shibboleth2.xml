@@ -81,7 +81,7 @@
         
         <MetadataProvider 
             type="XML" 
-            uri="https://ds.aaf.edu.au/distribution/metadata/metadata.aaf.signed.complete.xml"
+            uri="https://ds.aaf.edu.au/distribution/metadata/metadata.aaf.signed.minimal.xml"
             backingFilePath="metadata.aaf.xml" reloadInterval="7200">
             <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
             <MetadataFilter type="Signature" certificate="aaf-metadata-cert.pem"/>
