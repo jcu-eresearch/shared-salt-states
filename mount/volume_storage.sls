@@ -58,6 +58,7 @@ include:
       - device: {{ device }}1
       - fstype: {{ settings['fstype'] }}
       - mkmnt: {{ settings['mkmnt'] }}
+      - opts: {{ settings.get('opts', 'defaults,noatime,nodiratime,errors=remount-ro') }}
       - require: 
            - file: {{ device }}1
 
