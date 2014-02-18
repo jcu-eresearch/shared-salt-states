@@ -18,10 +18,6 @@
        - require:
           - file: /etc/ssh_keys
 
-Remove SSH public key:
-   file.absent:
-       - name: /etc/ssh_keys/id_rsa.pub
-   
 /etc/ssh_keys/id_rsa:
    file.managed:
        - makedirs: true
@@ -32,6 +28,3 @@ Remove SSH public key:
        - require:
           - file: /etc/ssh_keys/id_rsa.pub
 
-Remove SSH private key:
-   file.absent:
-       - name: /etc/ssh_keys/id_rsa
