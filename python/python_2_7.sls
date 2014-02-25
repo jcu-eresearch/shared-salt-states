@@ -21,14 +21,14 @@ python_2_7 package dependencies:
 # Starts a chain of events which results in the altinstall of python to /usr/local
 python_2_7 source:
   cmd.run:
-    - name: wget http://python.org/ftp/python/{{ version }}/Python-{{ version }}.tar.bz2
+    - name: wget http://python.org/ftp/python/{{ version }}/Python-{{ version }}.tgz
     - cwd: /tmp/
     # Don't do this if python2.7 is already installed
-    - unless: test -x /usr/local/bin/python2.7 || test -f /tmp/Python-{{ version }}.tar.bz2 
+    - unless: test -x /usr/local/bin/python2.7 || test -f /tmp/Python-{{ version }}.tgz
 
 python_2_7 decompress:
   cmd.wait:
-    - name: tar -xf Python-{{ version }}.tar.bz2
+    - name: tar -xf Python-{{ version }}.tgz
     - cwd: /tmp/
     - watch:
       - cmd: python_2_7 source
