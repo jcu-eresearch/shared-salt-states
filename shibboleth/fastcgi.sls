@@ -16,9 +16,9 @@ extend:
             - pkgrepo: jcu-eresearch 
             - pkgrepo: Shibboleth package repository 
 
-# Nginx snippets and configuration
-/etc/nginx/conf.d/:
+Shibboleth Nginx snippets and configuration:
    file.recurse:
+      - name: /etc/nginx/conf.d
       - source: salt://jcu/shibboleth/nginx/
       - user: nginx
       - group: nginx
