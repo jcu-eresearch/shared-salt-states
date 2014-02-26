@@ -1,0 +1,39 @@
+{% set nginx = pillar['nginx'] %}
+{% set email = nginx.get('contact-email', 'eresearch@jcu.edu.au') %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{{ nginx.get('service-name', 'JCU eResearch Services')}}</title>
+    <base href="/maintenance/" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap-responsive.min.css">
+</head>
+<body>
+
+<header>
+    <div class="container" style="margin: 2em auto;">
+	<div class="row">
+	    <img src="logo.png" />
+	</div>
+    </div>
+</header>
+<section>
+    <div class="container">
+	<div class="hero-unit">
+	<h1>We'll be right back!</h1>
+	<p class="lead">{{ nginx.get('service-name', 'This service') }} is currently down for brief system maintenance.</p>
+	</div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+	<div class="row">
+	    <p>If you've got any questions, get in touch with us at <a href="mailto:{{ email }}">{{ email }}</a>.</p>
+	</div>
+    </div>
+</section>
+
+</body>
+</html>
+
