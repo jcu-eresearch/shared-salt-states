@@ -7,10 +7,10 @@ passenger-4_0_20:
   gem.installed:
     - name: passenger
     - runas: rvm
-    - ruby: ruby-1.9.3
+    - ruby: ruby-1.9.3-p545
     - version: 4.0.20
     - require:
-      - rvm: ruby-1.9.3
+      - rvm: ruby-1.9.3-p545
 
 /etc/init.d/nginx:
   file.managed:
@@ -52,7 +52,7 @@ passenger-4_0_20:
 nginx:
   module.run:
     - name: rvm.do
-    - ruby: ruby-1.9.3
+    - ruby: ruby-1.9.3-p545
     - runas: rvm
     - command: passenger-install-nginx-module --auto --auto-download --prefix=/usr/local/nginx --extra-configure-flags="--user=rvm"
     - require:
