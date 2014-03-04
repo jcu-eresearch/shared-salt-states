@@ -35,6 +35,25 @@ nginx:
         - pkg: nginx
 {% endfor %}
 
+Nginx snippets and base configuration:
+   file.recurse:
+      - name: /etc/nginx/conf.d
+      - source: salt://jcu/nginx/conf.d
+      - user: nginx
+      - group: nginx
+      - require:
+         - pkg: nginx
+
+nginx maintenance resources:
+   file.recurse:
+      - name: /usr/share/nginx/html/maintenance
+      - source: salt://jcu/nginx/maintenance
+      - user: nginx
+      - group: nginx
+      - template: jinja
+      - require:
+         - pkg: nginx
+
 # Firewall configuration
 http iptables:
    module.run:
