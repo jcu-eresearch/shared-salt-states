@@ -56,17 +56,21 @@ nginx maintenance resources:
 
 # Firewall configuration
 http iptables:
-   module.run:
+   module.wait:
       - name: iptables.insert
       - table: filter
       - chain: INPUT
       - position: 3
       - rule: -p tcp --dport 80 -j ACCEPT
+      - watch:
+        - pkg: nginx
 
 https iptables:
-   module.run:
+   module.wait:
       - name: iptables.insert
       - table: filter
       - chain: INPUT
       - position: 3
       - rule: -p tcp --dport 443 -j ACCEPT
+      - watch:
+        - pkg: nginx
