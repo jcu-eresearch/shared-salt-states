@@ -7,7 +7,7 @@ For now, all salt states expect the OS to be CentOS. If it becomes appropriate
 to expand this to other OSs, grains should be used to switch on the current OS.
 
 Instructions
--------------
+------------
 
 These instructions are fairly limited for now.
 
@@ -17,3 +17,10 @@ These instructions are fairly limited for now.
 
 * You may wish to configure your submodule to point to the SSH push URL for the
   repository.
+
+
+Todo
+----
+
+* Configure yum priorities for any custom packages being installed (Shibboleth + Nginx + Supervisor)
+  At present, installation isn't explicitly pinned to install from our repositories.
