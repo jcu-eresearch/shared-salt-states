@@ -15,6 +15,7 @@ python_2_7 package dependencies:
       - sqlite-devel
       - readline-devel
       - tk-devel
+      - wget
     - require:
       - module: Development Tools
 
