@@ -6,6 +6,14 @@ A spot to place common salt state files (and their associated pillars).
 For now, all salt states expect the OS to be CentOS. If it becomes appropriate
 to expand this to other OSs, grains should be used to switch on the current OS.
 
+Requirements
+------------
+
+Some states may require a specific or newer version of Salt:
+
+* jcu.firewall.web requires ``v2014.1.0``
+
+
 Instructions
 ------------
 

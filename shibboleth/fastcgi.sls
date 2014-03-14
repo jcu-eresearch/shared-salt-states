@@ -11,7 +11,7 @@ include:
 extend:
    shibboleth:
       pkg:
-         - fromrepo: jcu-eresearch
+         #- fromrepo: jcu-eresearch
          - require:
             - pkgrepo: jcu-eresearch 
             - pkgrepo: Shibboleth package repository 

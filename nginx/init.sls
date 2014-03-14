@@ -1,3 +1,6 @@
+include:
+   - jcu.firewall.web
+
 nginx-repository:
    pkgrepo.managed:
       - name: nginx
@@ -10,6 +13,7 @@ nginx:
    pkg.installed: 
       - require:
            - pkgrepo: nginx-repository
+           - sls: jcu.firewall.web
    service.running:
       - enable: True
       - reload: True
@@ -54,23 +58,3 @@ nginx maintenance resources:
       - require:
          - pkg: nginx
 
-# Firewall configuration
-http iptables:
-   module.wait:
-      - name: iptables.insert
-      - table: filter
-      - chain: INPUT
-      - position: 3
-      - rule: -p tcp --dport 80 -j ACCEPT
-      - watch:
-        - pkg: nginx
-
-https iptables:
-   module.wait:
-      - name: iptables.insert
-      - table: filter
-      - chain: INPUT
-      - position: 3
-      - rule: -p tcp --dport 443 -j ACCEPT
-      - watch:
-        - pkg: nginx

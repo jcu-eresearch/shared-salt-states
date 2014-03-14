@@ -5,7 +5,7 @@ include:
 supervisor:
   pkg.installed:
     - refresh: true
-    - fromrepo: jcu-eresearch
+    #- fromrepo: jcu-eresearch
     - require:
       - pkgrepo: jcu-eresearch
       - pkg: epel
