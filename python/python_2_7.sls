@@ -15,15 +15,21 @@ python_2_7 package dependencies:
       - sqlite-devel
       - readline-devel
       - tk-devel
-      - wget
     - require:
       - module: Development Tools
 
 # Starts a chain of events which results in the altinstall of python to /usr/local
+python_2_7 install dependencies:
+  pkg.installed:
+    - names:
+      - wget
+
 python_2_7 source:
   cmd.run:
     - name: wget http://python.org/ftp/python/{{ version }}/Python-{{ version }}.tgz
     - cwd: /tmp/
+    - require:
+      - pkg: python_2_7 install dependencies
     # Don't do this if python2.7 is already installed
     - unless: test -x /usr/local/bin/python2.7 || test -f /tmp/Python-{{ version }}.tgz
 
