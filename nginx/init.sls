@@ -74,3 +74,8 @@ https iptables:
       - rule: -p tcp --dport 443 -j ACCEPT
       - require:
         - pkg: nginx
+
+save nginx iptables:
+    module.run:
+      - name: iptables.save
+      - filename: /etc/sysconfig/iptables
