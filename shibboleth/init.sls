@@ -21,6 +21,7 @@ shibboleth:
       - refresh: true
       - require:
          - pkgrepo: Shibboleth package repository 
+         - service: ntp
    service.running:
       - name: shibd
       - enable: True
