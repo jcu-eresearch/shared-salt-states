@@ -1,6 +1,9 @@
 {% set shibboleth_user = salt['pillar.get']('shibboleth:user', 'shibd') %}
 {% set shibboleth_group = salt['pillar.get']('shibboleth:group', 'shibd') %}
 
+include:
+  - jcu.ntp
+
 # For base packages
 Shibboleth package repository:
    pkgrepo.managed:
