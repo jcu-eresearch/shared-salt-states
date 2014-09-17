@@ -48,13 +48,13 @@ Configuration
 The state uses sensible defaults such that you need only a little pillar
 configuration to make things happen.  Configuration options are like this::
 
-shibboleth:
-   host: sp.example.org
-   entityID: https://sp.example.org/shibboleth
-   user: shibd [optional]
-   group: shibd [optional]
-   certificate: ... [a precomputed full certificate; optional]
-   key: ... [a precomputed full key; optional]
+   shibboleth:
+     host: sp.example.org
+     entityID: https://sp.example.org/shibboleth
+     user: shibd [optional]
+     group: shibd [optional]
+     certificate: ... [a precomputed full certificate; optional]
+     key: ... [a precomputed full key; optional]
 
 and these should be placed into your pillar data. For a worked example, see
 https://github.com/espaces/espaces-deployment/blob/master/salt/roots/pillar/base.sls#L40
