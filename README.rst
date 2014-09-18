@@ -18,6 +18,14 @@ These instructions are fairly limited for now.
 
 * You may wish to configure your submodule to point to the SSH push URL for the
   repository.
+  
+Using "standalone"
+------------------
+
+It is possible to use any of the given shared Salt states in a 'stand 
+alone' manner on a given machine you're using.  The repo
+located at https://github.com/jcu-eresearch/shared-salt-states-standalone
+features a minimalistic Salt configuration and how to quickly get started. 
 
 
 Todo
