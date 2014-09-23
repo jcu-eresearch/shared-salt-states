@@ -53,7 +53,7 @@ shibboleth configuration:
       - source: https://ds.aaf.edu.au/distribution/metadata/aaf-metadata-cert.pem
       - source_hash: sha256=18de1f447181033c2b91726919f51d21214f36bb450eb5988d3ebb19cd2e9ec5 
 {% else %}
-      - source: https://ds.test.aaf.edu.au/distribution/metadata/aaf-metadata-cert.pem
+      - source: https://ds.test.aaf.edu.au/distribution/metadata/aaf-metadata-cert.test.pem
       - source_hash: sha256=76edfa8d311887a7eceee3ccbb68166a61e6301037c89e5cdf4915af372ec546
 {% endif %}
       - user: {{ shibboleth_user }}

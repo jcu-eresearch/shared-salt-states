@@ -83,9 +83,9 @@
         <MetadataProvider 
             type="XML" 
             uri="https://ds{{ test_federation }}.aaf.edu.au/distribution/metadata/metadata.aaf.signed.minimal.xml"
-            backingFilePath="metadata.aaf.xml" reloadInterval="7200">
+            backingFilePath="metadata.aaf{{ test_federation }}.xml" reloadInterval="7200">
             <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
-            <MetadataFilter type="Signature" certificate="aaf-metadata-cert.pem"/>
+            <MetadataFilter type="Signature" certificate="aaf-metadata-cert{{ test_federation }}.pem"/>
         </MetadataProvider>
 
         <!-- Map to extract attributes from SAML assertions. -->
