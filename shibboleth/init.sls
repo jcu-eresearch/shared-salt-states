@@ -49,7 +49,7 @@ shibboleth configuration:
 
 /etc/shibboleth/aaf-metadata-cert.pem:
    file.managed:
-{% if salt['pillar.get']('shibboleth:test', '') %}
+{% if salt['pillar.get']('shibboleth:test', False) %}
       - source: https://ds.aaf.edu.au/distribution/metadata/aaf-metadata-cert.pem
       - source_hash: sha256=18de1f447181033c2b91726919f51d21214f36bb450eb5988d3ebb19cd2e9ec5 
 {% else %}
