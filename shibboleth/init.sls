@@ -47,20 +47,27 @@ shibboleth configuration:
       - watch_in:
          - service: shibboleth
 
+{% if salt['pillar.get']('shibboleth:test', False) %}
 /etc/shibboleth/aaf-metadata-cert.pem:
    file.managed:
-{% if salt['pillar.get']('shibboleth:test', False) %}
       - source: https://ds.aaf.edu.au/distribution/metadata/aaf-metadata-cert.pem
       - source_hash: sha256=18de1f447181033c2b91726919f51d21214f36bb450eb5988d3ebb19cd2e9ec5 
-{% else %}
-      - source: https://ds.test.aaf.edu.au/distribution/metadata/aaf-metadata-cert.test.pem
-      - source_hash: sha256=76edfa8d311887a7eceee3ccbb68166a61e6301037c89e5cdf4915af372ec546
-{% endif %}
       - user: {{ shibboleth_user }}
       - group: {{ shibboleth_group }}
       - mode: 644
       - require:
          - pkg: shibboleth
+{% else %}
+/etc/shibboleth/aaf-metadata-cert.test.pem:
+   file.managed:
+      - source: https://ds.test.aaf.edu.au/distribution/metadata/aaf-metadata-cert.test.pem
+      - source_hash: sha256=76edfa8d311887a7eceee3ccbb68166a61e6301037c89e5cdf4915af372ec546
+      - user: {{ shibboleth_user }}
+      - group: {{ shibboleth_group }}
+      - mode: 644
+      - require:
+         - pkg: shibboleth
+{% endif %}
 
 /etc/shibboleth/attribute-map.xml:
    file.managed:
