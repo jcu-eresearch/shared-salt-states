@@ -1,4 +1,5 @@
 {% set shibboleth = pillar['shibboleth'] %}
+{% set test_federation = '.test' if shibboleth.get('test') else '' %}
 <SPConfig xmlns="urn:mace:shibboleth:2.0:native:sp:config"
     xmlns:conf="urn:mace:shibboleth:2.0:native:sp:config"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
@@ -49,7 +50,7 @@
             You can also override entityID on /Login query string, or in RequestMap/htaccess.
             -->
             <SSO discoveryProtocol="SAMLDS" 
-                 discoveryURL="https://ds.aaf.edu.au/discovery/DS">
+                 discoveryURL="https://ds{{ test_federation }}.aaf.edu.au/discovery/DS">
               SAML2 SAML1
             </SSO>
 
@@ -81,7 +82,7 @@
         
         <MetadataProvider 
             type="XML" 
-            uri="https://ds.aaf.edu.au/distribution/metadata/metadata.aaf.signed.minimal.xml"
+            uri="https://ds{{ test_federation }}.aaf.edu.au/distribution/metadata/metadata.aaf.signed.minimal.xml"
             backingFilePath="metadata.aaf.xml" reloadInterval="7200">
             <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
             <MetadataFilter type="Signature" certificate="aaf-metadata-cert.pem"/>

@@ -49,6 +49,7 @@ The state uses sensible defaults such that you need only a little pillar
 configuration to make things happen.  Configuration options are like this::
 
    shibboleth:
+     test: true
      host: sp.example.org
      entityID: https://sp.example.org/shibboleth
      user: shibd [optional]
