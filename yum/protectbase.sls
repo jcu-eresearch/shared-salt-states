@@ -1,0 +1,3 @@
+yum-protectbase:
+   pkg:
+     installed

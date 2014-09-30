@@ -1,3 +1,6 @@
+include:
+  - jcu.yum.protectbase
+
 jcu-eresearch:
    pkgrepo.managed:
       - humanname: JCU eResearch Custom Repo
@@ -5,3 +8,6 @@ jcu-eresearch:
       - gpgcheck: 0
       - priority: 1
       - enabled: 1
+      - protected: 1
+      - require:
+        - pkg: yum-protectbase
