@@ -18,8 +18,8 @@ nginx:
    file.managed:
       - name: /etc/nginx/nginx.conf
       - source: salt://jcu/nginx/nginx.conf 
-      - user: nginx
-      - group: nginx
+      - user: root
+      - group: root
       - mode: 644
       - template: jinja
       - require:
@@ -35,12 +35,14 @@ nginx:
         - pkg: nginx
 {% endfor %}
 
-Nginx snippets and base configuration:
+nginx snippets and base configuration:
    file.recurse:
       - name: /etc/nginx/conf.d
       - source: salt://jcu/nginx/conf.d
-      - user: nginx
-      - group: nginx
+      - user: root
+      - group: root
+      - dir_mode: 755
+      - file_mode: 644
       - require:
          - pkg: nginx
 
@@ -48,8 +50,10 @@ nginx maintenance resources:
    file.recurse:
       - name: /usr/share/nginx/html/maintenance
       - source: salt://jcu/nginx/maintenance
-      - user: nginx
-      - group: nginx
+      - user: root
+      - group: root
+      - dir_mode: 755
+      - file_mode: 644
       - template: jinja
       - require:
          - pkg: nginx
