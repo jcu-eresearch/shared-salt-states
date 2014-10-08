@@ -7,7 +7,7 @@ nginx-repository:
       - enabled: 1 
 
 nginx:
-   pkg.installed: 
+   pkg.installed:
       - require:
            - pkgrepo: nginx-repository
    service.running:
