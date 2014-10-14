@@ -10,6 +10,6 @@ extend:
   # Install customised version supporting XSLT for HTML, AJP, Shibboleth + more
   nginx:
     pkg:
-      - fromrepo: jcu-eresearch
+      - refresh: true
       - require:
         - pkgrepo: jcu-eresearch

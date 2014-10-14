@@ -1,16 +1,21 @@
-# Any of these files could be templated if required
-{% set host = pillar['nginx']['host'] %}
-
+# Pillar should look like the following:
+# nginx:
+#   hosts:
+#     my.example.org:
+#       config: salt://path/hostname.conf
 include:
   - jcu.nginx
 
-{{ host }} web configuration:
+{% for host, config in pillar['nginx']['hosts'].items() %}
+
+{{ host }} web config:
   file.managed:
     - name: /etc/nginx/conf.d/{{ host }}.conf
-    - source: {{ pillar['nginx']['configuration'] }}
+    - source: {{ config['config'] }}
     - user: root
     - group: root
     - mode: 644
+    - template: jinja
     - watch_in:
       - service: nginx
 
@@ -39,3 +44,5 @@ include:
       - pkg: nginx
     - watch_in:
       - service: nginx
+
+{% endfor %}
