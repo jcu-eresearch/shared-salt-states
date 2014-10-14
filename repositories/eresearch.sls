@@ -10,4 +10,4 @@ jcu-eresearch:
       - enabled: 1
       - protected: 1
       - require:
-        - pkg: yum-protectbase
+        - pkg: yum-plugin-protectbase
