@@ -1,3 +1,2 @@
-yum-protectbase:
-   pkg:
-     installed
+yum-plugin-protectbase:
+   pkg.installed
