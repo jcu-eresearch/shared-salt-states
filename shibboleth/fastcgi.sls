@@ -11,17 +11,18 @@ include:
 extend:
    shibboleth:
       pkg:
-         - fromrepo: jcu-eresearch
          - require:
             - pkgrepo: jcu-eresearch 
             - pkgrepo: Shibboleth package repository 
 
-Shibboleth Nginx snippets and configuration:
+Shibboleth Nginx config:
    file.recurse:
       - name: /etc/nginx/conf.d
       - source: salt://jcu/shibboleth/nginx/
-      - user: nginx
-      - group: nginx
+      - user: root
+      - group: root
+      - dir_mode: 755
+      - file_mode: 644
       - require:
          - pkg: nginx
 
