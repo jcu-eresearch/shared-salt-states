@@ -4,7 +4,7 @@ nginx-repository:
       - humanname: nginx repo
       - baseurl: http://nginx.org/packages/{{ 'centos' if grains['os'] == 'CentOS' else 'rhel' }}/{{ grains['osmajorrelease'][0] }}/$basearch/ 
       - gpgcheck: 0
-      - enabled: 1 
+      - enabled: 1
 
 nginx:
    pkg.installed:
