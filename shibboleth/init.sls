@@ -9,12 +9,19 @@ Shibboleth package repository:
    pkgrepo.managed:
       - name: security_shibboleth 
       - humanname: Shibboleth
-      - gpgcheck: 0
-      - enabled: 1 
-      {% if grains['os_family'] == 'RedHat' %}
+      - gpgcheck: 1
+      - enabled: 1
+{% if grains['os_family'] == 'RedHat' %}
+  {% if grains['osmajorrelease'][0] in (5, 7) %}
       - baseurl: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-{{ grains['osmajorrelease'][0] }}/
-      - gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-{{ grains['osmajorrelease'][0] }}/repodata/repomd.xml.key 
-      {% endif %}
+      - gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-{{ grains['osmajorrelease'][0] }}/repodata/repomd.xml.key
+  {% elif grains['osmajorrelease'][0] == 6 %}
+      - baseurl: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/
+      - gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/repodata/repomd.xml.key
+  {% endif %}
+{% elif grains['os_family'] == 'Debain' %}
+      # Coming soon
+{% endif %}
 
 shibboleth:
    pkg.installed:
@@ -26,7 +33,7 @@ shibboleth:
       - name: shibd
       - enable: True
       - require:
-         - pkg: shibboleth 
+         - pkg: shibboleth
 
 shibboleth configuration:
    file.managed:
