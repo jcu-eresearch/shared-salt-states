@@ -17,14 +17,14 @@ extend:
 
 Shibboleth Nginx config:
   file.recurse:
-    - name: /etc/nginx/conf.d
-    - source: salt://jcu/shibboleth/nginx/
+    - name: /etc/nginx/conf.d/snippets
+    - source: salt://jcu/shibboleth/nginx/snippets
     - user: root
     - group: root
     - dir_mode: 755
     - file_mode: 644
     - require:
-      - pkg: nginx
+      - file: nginx snippets and base configuration
     - watch_in:
       - service: nginx
 
