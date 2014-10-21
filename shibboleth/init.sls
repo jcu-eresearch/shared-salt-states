@@ -9,10 +9,10 @@ Shibboleth package repository:
       - gpgcheck: 1
       - enabled: 1
 {% if grains['os_family'] == 'RedHat' %}
-  {% if grains['osmajorrelease'][0] in (5, 7) %}
-      - baseurl: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-{{ grains['osmajorrelease'][0] }}/
-      - gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-{{ grains['osmajorrelease'][0] }}/repodata/repomd.xml.key
-  {% elif grains['osmajorrelease'][0] == 6 %}
+  {% if grains['osmajorrelease'] in ('5', '7') %}
+      - baseurl: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-{{ grains['osmajorrelease'] }}/
+      - gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-{{ grains['osmajorrelease'] }}/repodata/repomd.xml.key
+  {% elif grains['osmajorrelease'] == '6' %}
       - baseurl: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/
       - gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/repodata/repomd.xml.key
   {% endif %}
