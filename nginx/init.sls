@@ -1,3 +1,6 @@
+include:
+  - jcu.firewall.web
+
 nginx-repository:
   pkgrepo.managed:
     - name: nginx
@@ -61,27 +64,13 @@ nginx maintenance resources:
       - pkg: nginx
 
 # Firewall configuration
-http iptables:
-  module.run:
-    - name: iptables.insert
-    - table: filter
-    - chain: INPUT
-    - position: 3
-    - rule: -p tcp --dport 80 -j ACCEPT
-    - require:
-      - pkg: nginx
+extend:
+  http iptables:
+    iptables.append:
+      - require:
+        - pkg: nginx
 
-https iptables:
-  module.run:
-    - name: iptables.insert
-    - table: filter
-    - chain: INPUT
-    - position: 3
-    - rule: -p tcp --dport 443 -j ACCEPT
-    - require:
-      - pkg: nginx
-
-save nginx iptables:
-  module.run:
-    - name: iptables.save
-    - filename: /etc/sysconfig/iptables
+  https iptables:
+    iptables.append:
+      - require:
+        - pkg: nginx
