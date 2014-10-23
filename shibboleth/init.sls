@@ -39,8 +39,8 @@ shibboleth configuration:
    file.managed:
       - name: /etc/shibboleth/shibboleth2.xml
       - source: salt://jcu/shibboleth/shibboleth2.xml
-      - user: {{ shibboleth_user }}
-      - group: {{ shibboleth_group }}
+      - user: root
+      - group: root
       - mode: 644
       - template: jinja
       - require:
@@ -62,8 +62,8 @@ shibboleth aaf certificate:
       - source: https://ds.aaf.edu.au/distribution/metadata/aaf-metadata-cert.pem
       - source_hash: sha256=18de1f447181033c2b91726919f51d21214f36bb450eb5988d3ebb19cd2e9ec5 
 {% endif %}
-      - user: {{ shibboleth_user }}
-      - group: {{ shibboleth_group }}
+      - user: root
+      - group: root
       - mode: 644
       - require:
          - pkg: shibboleth
@@ -71,8 +71,8 @@ shibboleth aaf certificate:
 /etc/shibboleth/attribute-map.xml:
    file.managed:
       - source: salt://jcu/shibboleth/attribute-map.xml
-      - user: {{ shibboleth_user }}
-      - group: {{ shibboleth_group }}
+      - user: root
+      - group: root
       - mode: 644
       - require:
          - pkg: shibboleth
@@ -90,10 +90,10 @@ shibboleth aaf certificate:
 {% if salt['pillar.get']('shibboleth:certificate', '') %}
 shibboleth certificate:
    file.managed:
-      - name: /etc/shibboleth/sp-cert.pem 
+      - name: /etc/shibboleth/sp-cert.pem
       - contents_pillar: 'shibboleth:certificate'
-      - user: {{ shibboleth_user }}
-      - group: {{ shibboleth_group }}
+      - user: root
+      - group: root
       - mode: 644
       - require:
          - pkg: shibboleth
@@ -106,7 +106,7 @@ shibboleth identity:
       - contents_pillar: 'shibboleth:key'
       - user: {{ shibboleth_user }}
       - group: {{ shibboleth_group }}
-      - mode: 600
+      - mode: 400
       - require:
          - file: shibboleth certificate
       - require_in:
@@ -130,4 +130,3 @@ shibboleth identity:
       - require:
            - cmd: shibboleth identity creation
 {% endif %}
-
