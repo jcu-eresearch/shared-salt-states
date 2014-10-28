@@ -24,16 +24,6 @@ custom nagios plugins:
     - require:
       - pkg: ksh
 
-'chcon -u system_u /usr/local/lib/nagios/plugins/*':
-  cmd.run:
-    - require:
-      - file: custom nagios plugins
-
-'chcon -t nagios_system_plugin_exec_t /usr/local/lib/nagios/plugins/*':
-  cmd.run:
-    - require:
-      - file: custom nagios plugins
-
 nrpe configuration:
   file.managed:
     - name: /etc/nagios/nrpe.cfg
