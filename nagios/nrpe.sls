@@ -1,11 +1,33 @@
+nrpe-plugin:
+  pkg.installed
+
+nagios-common:
+  pkg.installed
+
 nrpe:
-  pkg:
-    - installed
+  pkg.installed:
+    - require:
+      - pkg: nrpe-plugin
+      - pkg: nagios-common
   service.running:
     - enable: True
-    - reload: True
+    - full_restart: True
     - watch:
       - pkg: nrpe
+
+custom nagios plugins:
+  file.exists:
+    - name: /usr/local/lib/nagios
+
+'chcon -u system_u /usr/local/lib/nagios/plugins/*':
+  cmd.run:
+    - require:
+      - file: nagios plugins
+
+'chcon -t nagios_system_plugin_exec_t /usr/local/lib/nagios/plugins/*':
+  cmd.run:
+    - require:
+      - file: nagios plugins
 
 nrpe configuration:
   file.managed:
@@ -17,16 +39,19 @@ nrpe configuration:
     - template: jinja
     - require:
       - pkg: nrpe
+      - file: custom nagios plugins
     - watch_in:
       - service: nrpe
 
-'chcon -u system_u /usr/local/lib/nagios/plugins/*':
-  cmd.run:
+nrpe firewall configuration:
+  iptables.append:
+    - table: filter
+    - chain: NEW
+    - jump: ACCEPT
+    - proto: tcp
+    - dport: 5666
+    - source: 137.219.15.0/24
+    - save: True
     - require:
-      - pkg: nrpe
-
-'chcon -t nagios_system_plugin_exec_t /usr/local/lib/nagios/plugins/*':
-  cmd.run:
-    - require:
-      - pkg: nrpe
+      - file: nrpe configuration
 
