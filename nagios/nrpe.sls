@@ -15,9 +15,14 @@ nrpe:
     - watch:
       - pkg: nrpe
 
+ksh:
+  pkg.installed
+
 custom nagios plugins:
   file.exists:
     - name: /usr/local/lib/nagios
+    - require:
+      - pkg: ksh
 
 'chcon -u system_u /usr/local/lib/nagios/plugins/*':
   cmd.run:
