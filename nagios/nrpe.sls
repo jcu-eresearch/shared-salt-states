@@ -27,12 +27,12 @@ custom nagios plugins:
 'chcon -u system_u /usr/local/lib/nagios/plugins/*':
   cmd.run:
     - require:
-      - file: nagios plugins
+      - file: custom nagios plugins
 
 'chcon -t nagios_system_plugin_exec_t /usr/local/lib/nagios/plugins/*':
   cmd.run:
     - require:
-      - file: nagios plugins
+      - file: custom nagios plugins
 
 nrpe configuration:
   file.managed:
