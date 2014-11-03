@@ -1,7 +1,7 @@
-    error_page   404            /errors/not-found.html;
-    error_page   500 503 504    /errors/offline.html;
-    error_page   502            /errors/maintenance.html;
-    location /errors {
-        alias   /usr/share/nginx/html/errors;
+    error_page   404            /_errors/not-found.html;
+    error_page   500 503 504    /_errors/offline.html;
+    error_page   502            /_errors/maintenance.html;
+    location ~ ^/_errors(.*)$ {
+        alias   /usr/share/nginx/html/errors$1;
         more_set_headers "Cache-Control: no-store, no-cache, max-age=0, must-revalidate, private";
     }
