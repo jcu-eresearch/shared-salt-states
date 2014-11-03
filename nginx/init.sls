@@ -51,10 +51,10 @@ nginx snippets and base configuration:
     - watch_in:
       - service: nginx
 
-nginx maintenance resources:
+nginx error resources:
   file.recurse:
-    - name: /usr/share/nginx/html/maintenance
-    - source: salt://jcu/nginx/maintenance
+    - name: /usr/share/nginx/html/errors
+    - source: salt://jcu/nginx/errors
     - user: root
     - group: root
     - dir_mode: 755

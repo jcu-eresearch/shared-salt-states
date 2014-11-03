@@ -4,7 +4,8 @@ Nginx
 The states here perform different tasks, depending on your requirements:
 
 * ``init.sls`` performs a basic Nginx installation, including general
-  configuration, adding JCU maintenance resources, and configuring iptables.
+  configuration, adding JCU error/maintenance resources, and configuring
+  iptables.
 * ``custom.sls`` perfoms a custom Nginx installation from JCU's repository.
   This version of Nginx contains features like LDAP authentication, fancy
   indexes, and most importantly, Shibboleth integration.  Read more at

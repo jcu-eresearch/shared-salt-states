@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <title>{{ nginx.get('service-name', 'JCU eResearch Services')}}</title>
-    <base href="/maintenance/" />
+    <base href="/errors/" />
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="bootstrap-responsive.min.css">
 </head>
@@ -20,8 +20,8 @@
 <section>
     <div class="container">
 	<div class="hero-unit">
-	<h1>Oops, sorry about that.</h1>
-	<p class="lead">{{ nginx.get('service-name', 'This service') }} is taking too long to respond to your action.</p>
+	<h1>Oh dear, it's a 404.</h1>
+	<p class="lead">We couldn't find anything at the URL you requested on {{ nginx.get('service-name', 'this service') }}.</p>
 	</div>
     </div>
 </section>
@@ -29,10 +29,8 @@
 <section>
     <div class="container">
 	<div class="row">
-	    <p>This may be due to your action timing out, a system issue, or
-	     too many people accessing the service at the same time.</p>
-	    <p>This issue has been logged and we'll investigate it shortly.</p>
-	    <p>If you've got any questions, get in touch with us at <a href="mailto:{{ email }}">{{ email }}</a>.</p>
+	    <p>This may be due to an incorrect link or URL that you've followed,
+            or a resource that no longer exists.</p>
 	</div>
     </div>
 </section>
