@@ -35,7 +35,7 @@ Todo
   packages of Shibboleth, Nginx and Supervisor. These need to be manually
   installed until we can update to Salt 2014.1.0 (which is also borked for
   iptables configuration).
-* SSH configuration for port 8822 only
+* SSH configuration for port 8822 only, password auth off
 * Upgrade to support RHEL 7
 * Support IP tables via state, stop multiple iptables entries being added into
   /etc/sysconfig/iptables
