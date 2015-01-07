@@ -1,6 +1,6 @@
 #Note that existing Python installations will not be upgraded unless the old
 #interpreter is removed.
-{% set version = '2.7.6' %}
+{% set version = '2.7.9' %}
 
 include:
   - jcu.development_tools
