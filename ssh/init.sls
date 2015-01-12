@@ -21,7 +21,7 @@
 /etc/ssh_keys/id_rsa:
    file.managed:
        - makedirs: true
-       - user: {{ ssh_user }} 
+       - user: {{ ssh_user }}
        - user: {{ ssh_group }}
        - mode: 600
        - contents_pillar: 'ssh:private_key'
