@@ -1,12 +1,19 @@
+include:
+  - jcu.repositories.epel
+
+# Requires jcu-el6-64-repo manually
 nrpe-plugin:
   pkg.installed
 
 nagios-common:
-  pkg.installed
+  pkg.installed:
+    - require:
+      - pkg: epel
 
 nrpe:
   pkg.installed:
     - require:
+      - pkg: epel
       - pkg: nrpe-plugin
       - pkg: nagios-common
   service.running:
