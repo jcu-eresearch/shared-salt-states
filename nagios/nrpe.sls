@@ -1,9 +1,11 @@
 include:
   - jcu.repositories.epel
+  - jcu.repositories.eresearch
 
-# Requires jcu-el6-64-repo manually
 nrpe-plugin:
-  pkg.installed
+  pkg.installed:
+    - require:
+      - pkgrepo: jcu-eresearch
 
 nagios-common:
   pkg.installed:
@@ -26,8 +28,13 @@ ksh:
   pkg.installed
 
 custom nagios plugins:
-  file.exists:
-    - name: /usr/local/lib/nagios
+  file.recurse:
+    - name: /usr/local/lib/nagios/plugins
+    - source: salt://jcu/nagios/plugins
+    - user: root
+    - group: root
+    - dir_mode: 755
+    - file_mode: 755
     - require:
       - pkg: ksh
 
@@ -48,11 +55,12 @@ nrpe configuration:
 nrpe firewall configuration:
   iptables.append:
     - table: filter
-    - chain: NEW
+    - chain: INPUT
     - jump: ACCEPT
     - proto: tcp
     - dport: 5666
     - source: 137.219.15.0/24
+    #- comment: Allow Nagios
     - save: True
     - require:
       - file: nrpe configuration
