@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+my (@CONF,@LIVE, @conf,@live);
+chomp(@CONF = `awk '/nfs/ {print \$1" "\$2" "\$4}' /etc/fstab | sort`);
+chomp(@LIVE = `awk '/ nfs/ {print \$1" "\$2" "\$4}' /etc/mtab | sort`);
+
+if ($#CONF > $#LIVE)
+{ print "ERROR - An NFS filesystem in /etc/fstab is not mounted!\n"; exit(2); }
+
+if ($#CONF < $#LIVE)
+{ print "WARNING - A mounted NFS filesystem does not appear in /etc/fstab!\n"; exit(1); }
+
+for ($i=0 ; $i<=$#CONF ; $i++)
+{
+    @conf = split(/ /,$CONF[$i]);
+    @live = split(/ /,$LIVE[$i]);
+
+    if ($conf[0] ne $live[0] || $conf[1] ne $live[1])
+    { print "ERROR - NFS filesystem mismatch between /etc/fstab and /etc/mtab!\n"; exit(2); }
+
+    if ($live[2] !~ /noatime/)
+    { print "WARNING - 'noatime' option not present in /etc/mtab for $live[0]!\n";  exit(1); }
+    if ($conf[2] !~ /noatime/)
+    { print "WARNING - 'noatime' option not present in /etc/fstab for $conf[0]!\n"; exit(1); }
+
+    if ($conf[0] =~ /^dmf/)
+    {
+	if ($live[2] !~ /nfsvers=3/)
+	{ print "WARNING - 'nfsvers=3' option not present in /etc/mtab for $live[0]!\n";  exit(1); }
+	if ($conf[2] !~ /nfsvers=3/)
+	{ print "WARNING - 'nfsvers=3' option not present in /etc/fstab for $conf[0]!\n"; exit(1); }
+    }
+}
+
+my  $pid=fork();
+defined($pid) || die("UNKNOWN - Unable to fork process!\n");
+if ($pid == 0)
+{
+    exec("df -t nfs >/dev/null &");
+    exit(0);
+}
+else
+{
+    sleep 1;
+    chomp($rtrn = `pidof df`);
+    if ("$rtrn" ne "")
+    {
+	kill 9, $pid;
+	print "ERROR - An NFS filesystem is not responding (or slow)!\n";
+	exit(2);
+    }
+}
+
+print "OK - All configured NFS filesystems are mounted and available.\n";
+exit(0);
