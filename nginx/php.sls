@@ -1,14 +1,22 @@
 include:
-  - jcu.repositories.remi
   - jcu.nginx
+  - jcu.php.fpm
 
-Install nginx php support packages:
-  pkg.installed:
-    - pkgs:
-      - php-fpm
-      - php-common
+extend:
+  php-fpm:
+    pkg.installed:
+      - require_in:
+        - pkg: nginx
+    service.running:
+      - watch_in:
+        - service: nginx
+
+php nginx configuration snippets:
+  file.recurse:
+    - name: /etc/nginx/conf.d/snippets
+    - source: salt://jcu/nginx/php_snippets
+    - user: root
+    - group: root
     - require:
-      - pkg: remi
-      - pkg: nginx
-    - watch_in:
-      - service: nginx
+      - file: nginx snippets and base configuration
+      - pkg: php-fpm
