@@ -2,5 +2,6 @@ include:
   - jcu.repositories.epel
 
 bash-completion:
-  pkg:
-    - installed
+  pkg.installed:
+    - require:
+      - pkg: epel
