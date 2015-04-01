@@ -3,6 +3,7 @@ include:
   - jcu.repositories.eresearch
 
 extend:
+  # Ensure that the default Nginx repo is gone
   nginx-repository:
     pkgrepo:
       - absent
