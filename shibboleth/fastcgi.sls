@@ -15,6 +15,12 @@ extend:
         - pkgrepo: jcu-eresearch 
         - pkgrepo: Shibboleth package repository 
 
+# Prevent updating new shibboleth version with non-FastCGI package
+extend:
+  Shibboleth package repository:
+    pkgrepo:
+      - exclude: shibboleth shibboleth-debug
+
 Shibboleth Nginx config:
   file.recurse:
     - name: /etc/nginx/conf.d/snippets
