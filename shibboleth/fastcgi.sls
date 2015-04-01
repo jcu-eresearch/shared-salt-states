@@ -7,16 +7,15 @@ include:
 {% set shibboleth_user = salt['pillar.get']('shibboleth:user', 'shibd') %}
 {% set shibboleth_group = salt['pillar.get']('shibboleth:group', 'shibd') %}
 
-# Install customised version supporting FastCGI
 extend:
+  # Install customised version supporting FastCGI
   shibboleth:
     pkg:
       - require:
         - pkgrepo: jcu-eresearch 
         - pkgrepo: Shibboleth package repository 
 
-# Prevent updating new shibboleth version with non-FastCGI package
-extend:
+  # Prevent updating new shibboleth version with non-FastCGI package
   Shibboleth package repository:
     pkgrepo:
       - exclude: shibboleth shibboleth-debug
