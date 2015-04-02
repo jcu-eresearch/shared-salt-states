@@ -1,0 +1,5 @@
+
+    location ~ [^/]\.php(/|$) {
+        include config.d/snippets/php-location;
+        fastcgi_index index.php;
+    }

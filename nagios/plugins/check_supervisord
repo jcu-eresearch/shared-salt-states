@@ -1,0 +1,52 @@
+#!/bin/bash
+
+exit=0
+
+all_status=`supervisorctl status`
+if [ $? -ne 0 ];
+then
+	echo "ERROR: Failed to run supervisorctl. Maybe a permission issue."
+	exit 2
+fi
+
+IFS=$'\n'
+for line in `supervisorctl status`; do
+	_line=`echo $line | tr -s ' '`
+	service=`echo $_line | cut -d ' ' -f 1`
+	status=`echo $_line | cut -d ' ' -f 2`
+	found=0
+
+	if [[ $status == "STOPPED" ]];
+	then
+		exit=2
+		echo -n "ERROR: $service is not running. "
+		found=1
+	fi
+
+	if [[ $status == "STARTING" ]];
+	then
+		if [ $exit eq 0 ];
+		then
+			exit=1
+		fi
+		echo -n "ERROR: $service is starting. "
+		found=1
+	fi
+
+	if [ $status == "RUNNING" ]; 
+	then
+		found=1
+		echo -n "OK: $service is RUNNING. "
+	fi
+	
+
+	if [ $found -eq 0 ];
+	then
+		exit=2
+		echo -n "ERROR: $service is in an unknown state. "
+	fi
+
+	
+done
+
+exit $exit	

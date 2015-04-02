@@ -1,10 +1,10 @@
-{% set nginx = pillar['nginx'] %}
+{% set nginx = pillar['shibboleth'] %}
 {% set email = nginx.get('contact-email', 'eresearch@jcu.edu.au') %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>{{ nginx.get('service-name', 'JCU eResearch Services')}}</title>
-    <base href="/maintenance/" />
+    <base href="/_errors/" />
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="bootstrap-responsive.min.css">
 </head>
@@ -20,8 +20,8 @@
 <section>
     <div class="container">
 	<div class="hero-unit">
-	<h1>We'll be right back!</h1>
-	<p class="lead">{{ nginx.get('service-name', 'This service') }} is currently down for brief system maintenance.</p>
+	<h1>Oops, sorry about that.</h1>
+	<p class="lead">{{ nginx.get('service-name', 'This service') }} is taking too long to respond to your action.</p>
 	</div>
     </div>
 </section>
@@ -29,6 +29,9 @@
 <section>
     <div class="container">
 	<div class="row">
+	    <p>This may be due to your action timing out, a system issue, or
+	     too many people accessing the service at the same time.</p>
+	    <p>This issue has been logged and we'll investigate it shortly.</p>
 	    <p>If you've got any questions, get in touch with us at <a href="mailto:{{ email }}">{{ email }}</a>.</p>
 	</div>
     </div>

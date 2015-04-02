@@ -3,4 +3,4 @@
 #Include using:
 #include conf.d/snippets/shibboleth-location;
 include conf.d/snippets/shibboleth-drop-headers;
-auth_request /shibauthorizer authorizer=on;
+shib_request /shibauthorizer;

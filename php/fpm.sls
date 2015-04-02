@@ -1,8 +1,7 @@
-yum-cron:
+php-fpm:
   pkg:
     - installed
   service.running:
     - enable: True
-    - reload: True
     - watch:
-      - pkg: yum-cron
+      - pkg: php-fpm

@@ -1,0 +1,40 @@
+{% set nginx = pillar['shibboleth'] %}
+{% set email = nginx.get('contact-email', 'eresearch@jcu.edu.au') %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{{ nginx.get('service-name', 'JCU eResearch Services')}}</title>
+    <base href="/_errors/" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap-responsive.min.css">
+</head>
+<body>
+
+<header>
+    <div class="container" style="margin: 2em auto;">
+	<div class="row">
+	    <img src="logo.png" />
+	</div>
+    </div>
+</header>
+<section>
+    <div class="container">
+	<div class="hero-unit">
+	<h1>Oh dear, it's a 404.</h1>
+	<p class="lead">We couldn't find anything at the URL you requested on {{ nginx.get('service-name', 'this service') }}.</p>
+	</div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+	<div class="row">
+	    <p>This may be due to an incorrect link or URL that you've followed,
+            or a resource that no longer exists.</p>
+	</div>
+    </div>
+</section>
+
+</body>
+</html>
+

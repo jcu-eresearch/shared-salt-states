@@ -112,4 +112,3 @@ shibboleth identity:
     - require:
       - cmd: shibboleth identity creation
 {% endif %}
-

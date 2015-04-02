@@ -1,0 +1,28 @@
+#!/bin/bash
+# SYNOPSIS:
+#       check_memory
+#
+# NAIOGS PLUGIN DESCRIPTION
+#	Report probable, recent use of swap
+#
+# Created:	2009/10/26  wayne.mallett@jcu.edu.au [1]
+# Changes:	2010/09/07  [1]  Modified to use vmstat output
+#
+
+MI=`/usr/bin/free | /usr/bin/awk '/Mem: / {print 100*($3-$7)/$2"\n"100*($4+$7)/$2" "100*$7/$2}'`
+MI=( $MI )    # ( Real use , Free , Caching use )
+
+BC=`echo "${MI[1]} < 1.0" | bc`
+if [ $BC -eq 1 ] ; then
+  echo "CRITICAL - Memory usage: ${MI[0]}% (real), ${MI[2]}% (caching).";
+  exit 2
+else
+  BC=`echo "${MI[1]} < 10.0" | bc`
+  if [ $BC -eq 1 ] ; then
+    echo "WARNING - Memory usage: ${MI[0]}% (real), ${MI[2]}% (caching).";
+    exit 1
+  else
+    echo "OK - Memory usage: ${MI[0]}% (real), ${MI[2]}% (caching).";
+    exit 0
+  fi
+fi
