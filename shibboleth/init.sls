@@ -1,6 +1,7 @@
 include:
   - jcu.ntp
 
+{# Use a special case for RHEL 6; Salt returns a tuple. #}
 # For base packages
 Shibboleth package repository:
    pkgrepo.managed:
