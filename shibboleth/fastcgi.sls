@@ -12,7 +12,7 @@ extend:
   shibboleth:
     pkg:
       - require:
-        - pkgrepo: jcu-eresearch 
+        - pkgrepo: jcu-eresearch
         - pkgrepo: Shibboleth package repository 
 
 Shibboleth Nginx config:
