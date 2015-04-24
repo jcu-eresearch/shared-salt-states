@@ -10,7 +10,11 @@ to expand this to other OSs, grains should be used to switch on the current OS.
 Instructions
 ------------
 
-These instructions are fairly limited for now.
+* These Salt states require a minimum version of ``v2015.2.0rc1``.
+
+* States will typically be kept in lock-step with the latest appropriate
+  version of Salt, as and when Salt versions are released (and our code is
+  updated accordingly).
 
 * Clone this repo into your ``salt/roots/salt`` folder::
 

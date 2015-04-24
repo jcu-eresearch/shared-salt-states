@@ -52,6 +52,9 @@ nrpe configuration:
     - watch_in:
       - service: nrpe
 
+{# Workaround for https://github.com/saltstack/salt/issues/12455 #}
+{# Only works for systems with consistent minion config (eg not SSH) #}
+{% if salt['grains.get']('nrpe-firewall-configuration') != 'applied' %}
 nrpe firewall configuration:
   iptables.append:
     - table: filter
@@ -64,4 +67,7 @@ nrpe firewall configuration:
     - save: True
     - require:
       - file: nrpe configuration
-
+  grains.present:
+    - name: nrpe-firewall-configuration
+    - value: applied
+{% endif %}
