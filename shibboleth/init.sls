@@ -1,6 +1,9 @@
 include:
   - jcu.ntp
 
+{% set shibboleth_user = salt['pillar.get']('shibboleth:user', 'shibd') %}
+{% set shibboleth_group = salt['pillar.get']('shibboleth:group', 'shibd') %}
+
 {# Use a special case for RHEL 6; Salt returns a tuple. #}
 # For base packages
 Shibboleth package repository:
@@ -17,7 +20,7 @@ Shibboleth package repository:
       - baseurl: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/
       - gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/repodata/repomd.xml.key
   {% endif %}
-{% elif grains['os_family'] == 'Debain' %}
+{% elif grains['os_family'] == 'Debian' %}
       # Coming soon
 {% endif %}
 
@@ -33,7 +36,25 @@ shibboleth:
       - require:
          - pkg: shibboleth
 
-# Requires AAF templating
+# For any configured providers, download the provider certificates
+{% from "jcu/shibboleth/providers.yaml" import shibboleth_providers with context %}
+{% for provider in salt['pillar.get']('shibboleth:providers', ['aaf']) %}
+{% set cert_metadata = shibboleth_providers[provider]['certificate'] %}
+shibboleth {{ provider }} certificate:
+  file.managed:
+    - name: {{ cert_metadata['name'] }}
+    - source: {{ cert_metadata['source'] }}
+    - source_hash: {{ cert_metadata['source_hash'] }}
+    - user: root
+    - group: root
+    - mode: 644
+    - require_in:
+      - file: shibboleth configuration
+    - require:
+      - pkg: shibboleth
+{% endfor %}
+
+# Templated for multiple Shibboleth providers
 shibboleth configuration:
   file.managed:
     - name: /etc/shibboleth/shibboleth2.xml
@@ -113,3 +134,4 @@ shibboleth identity:
     - require:
       - cmd: shibboleth identity creation
 {% endif %}
+
