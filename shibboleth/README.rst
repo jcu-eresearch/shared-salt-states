@@ -78,3 +78,29 @@ Providers are the top-level identifiers specified in the ``providers.yaml``
 file located in this directory.  This currently supports AAF and Tuakiri and
 their test federations.  If ``providers`` is not specified, AAF production
 will be configured.
+
+Federation registry settings
+----------------------------
+
+When using this set of Salt states with one federation, the default Service
+Provider (SP) configuration given to you by your federation registry should be
+sufficient to see your service configured correctly.
+
+In the case of use with multiple federations, you'll need to modify your SP's
+settings in the given federation registry accordingly.  Specifically, the only
+setting that will need to be modified or added to is your SAML Discovery
+Endpoints.  For each federation, these Salt states will create a discovery URL
+like so::
+
+    https://example.org/Shibboleth.sso/ds-aaf-test
+
+or, more generally::
+
+    https://example.org/Shibboleth.sso/ds-[provider-id]
+
+where ``[provider-id]`` is the identifier of the provider from
+``providers.yaml`` that you specified in your pillar, as mentioned above.  One
+URL will be available for each federation.  You can test these URLs by loading
+them in your browser -- you'll be directed to the given federation to log in.
+In the case of AAF of Tuakiri, you'll be presented with a Where Are You From
+(WAYF) page to select an institution.
