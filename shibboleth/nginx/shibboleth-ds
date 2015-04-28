@@ -1,0 +1,4 @@
+# Resources for the Shibboleth embedded DS.
+location ~ ^/shibboleth-ds(.*)$ {
+    alias /etc/shibboleth-ds$1;
+}

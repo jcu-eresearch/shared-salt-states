@@ -95,7 +95,9 @@
         <MetadataProvider
             type="XML"
             uri="{{ metadata_provider['uri'] }}"
-            backingFilePath="{{ metadata_provider['backingFilePath'] }}" reloadInterval="7200">
+            backingFilePath="{{ metadata_provider['backingFilePath'] }}"
+            legacyOrgNames="true"
+            reloadInterval="7200">
             <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
             <MetadataFilter type="Signature" certificate="{{ shibboleth_providers[provider]['certificate']['name'] }}"/>
         </MetadataProvider>
