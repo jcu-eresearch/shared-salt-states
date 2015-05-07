@@ -1,0 +1,15 @@
+%echo Generating a key for {{ name_real }}
+Key-Type: {{ key_type|default('RSA') }}
+Key-Length: {{ key_length|default(2048) }}
+Subkey-Type: {{ subkey_type|default('RSA') }}
+Subkey-Length: {{ key_length|default(2048) }}
+Name-Real: {{ name_real }}
+{%- if name_comment -%}
+Name-Comment: {{ name_comment }}
+{%- endif %}
+Name-Email: {{ name_email }}
+Expire-Date: {{ expire_date|default(0) }}
+Passphrase: {{ passphrase }}
+# Do a commit here, so that we can echo completion message
+%commit
+%echo GPG keypair generated
