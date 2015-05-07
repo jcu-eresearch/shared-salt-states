@@ -1,0 +1,53 @@
+{% load_yaml as shibboleth_providers %}
+# Providers need to follow the existing structure.  These settings will be
+# transposed into the Shibboleth configuration depending on which providers
+# IDs are specified in the "shibboleth:providers" pillar list.
+
+# Australian Access Federation
+aaf:
+  certificate:
+    name: /etc/shibboleth/aaf-metadata-cert.pem
+    source: https://ds.aaf.edu.au/distribution/metadata/aaf-metadata-cert.pem
+    source_hash: sha256=18de1f447181033c2b91726919f51d21214f36bb450eb5988d3ebb19cd2e9ec5 
+  discoveryURL: https://ds.aaf.edu.au/discovery/DS
+  metadataProvider:
+    uri: https://ds.aaf.edu.au/distribution/metadata/metadata.aaf.signed.minimal.xml
+    backingFilePath: metadata.aaf.test.xml
+
+aaf-test:
+  certificate:
+    name: /etc/shibboleth/aaf-metadata-cert.test.pem
+    source: https://ds.test.aaf.edu.au/distribution/metadata/aaf-metadata-cert.pem
+    source_hash: sha256=76edfa8d311887a7eceee3ccbb68166a61e6301037c89e5cdf4915af372ec546
+
+  discoveryURL: https://ds.test.aaf.edu.au/discovery/DS
+
+  metadataProvider:
+    uri: https://ds.test.aaf.edu.au/distribution/metadata/metadata.aaf.signed.minimal.xml
+    backingFilePath: metadata.aaf.test.xml
+
+#Tuakiri (New Zeland Access Federation)
+tuakiri:
+  certificate:
+    name: /etc/shibboleth/tuakiri-metadata-cert.pem
+    source: https://directory.tuakiri.ac.nz/metadata/tuakiri-metadata-cert.pem
+    source_hash: sha256=79d6a335da320bccd9db221b52589180c1303d95e0ce488994b8187a7a449149
+
+  discoveryURL: https://directory.tuakiri.ac.nz/ds/DS
+
+  metadataProvider:
+    uri: https://directory.tuakiri.ac.nz/metadata/tuakiri-metadata-signed.xml
+    backingFilePath: metadata.tuakiri.xml
+
+tuakiri-test:
+  certificate:
+    name: /etc/shibboleth/tuakiri-metadata-cert.test.pem
+    source: https://directory.test.tuakiri.ac.nz/metadata/tuakiri-test-metadata-cert.pem
+    source_hash: sha256=258a2997434cc04a420d05d80cb375116a558a6549066a7700f802c76d4472ce
+
+  discoveryURL: https://directory.test.tuakiri.ac.nz/ds/DS
+
+  metadataProvider:
+    uri: https://directory.test.tuakiri.ac.nz/metadata/tuakiri-test-metadata-signed.xml
+    backingFilePath: metadata.tuakiri.test.xml
+{% endload %}

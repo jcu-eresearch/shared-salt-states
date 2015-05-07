@@ -12,12 +12,13 @@ extend:
   shibboleth:
     pkg:
       - require:
-        - pkgrepo: jcu-eresearch 
+        - pkgrepo: jcu-eresearch
         - pkgrepo: Shibboleth package repository 
 
   # Prevent updating new shibboleth version with non-FastCGI package
   Shibboleth package repository:
     pkgrepo:
+      - priority: 2
       - exclude: shibboleth shibboleth-devel shibboleth-debuginfo
 
 Shibboleth Nginx config:

@@ -1,5 +1,5 @@
+{% from "jcu/shibboleth/providers.yaml" import shibboleth_providers with context %}
 {% set shibboleth = pillar['shibboleth'] %}
-{% set test_federation = '.test' if shibboleth.get('test') else '' %}
 <SPConfig xmlns="urn:mace:shibboleth:2.0:native:sp:config"
     xmlns:conf="urn:mace:shibboleth:2.0:native:sp:config"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
@@ -49,14 +49,24 @@
             (Set discoveryProtocol to "WAYF" for legacy Shibboleth WAYF support.)
             You can also override entityID on /Login query string, or in RequestMap/htaccess.
             -->
-            <SSO discoveryProtocol="SAMLDS" 
-                 discoveryURL="https://ds{{ test_federation }}.aaf.edu.au/discovery/DS">
+            {# Use single discoveryURL setting if present, or first
+             Shibboleth provider if not. #}
+            <SSO discoveryProtocol="SAMLDS"
+                discoveryURL="{{ shibboleth['discoveryURL'] if 'discoveryURL' in shibboleth else providers[shibboleth['providers'][0]]['discoveryURL'] }}">
               SAML2 SAML1
             </SSO>
 
             <!-- SAML and local-only logout. -->
             <Logout>SAML2 Local</Logout>
-            
+
+            {% for provider in shibboleth['providers'] %}
+            <SessionInitiator type="Chaining" Location="/ds-{{ provider }}" id="ds-{{ provider }}" relayState="cookie">
+                <SessionInitiator type="SAML2" acsIndex="1" template="bindingTemplate.html"/>
+                <SessionInitiator type="Shib1" acsIndex="5"/>
+                <SessionInitiator type="SAMLDS" URL="{{ shibboleth_providers[provider]['discoveryURL'] }}"/>
+            </SessionInitiator>
+            {% endfor %}
+
             <!-- Extension service that generates "approximate" metadata based on SP configuration. -->
             <Handler type="MetadataGenerator" Location="/Metadata"
                      signing="false"/>
@@ -80,16 +90,21 @@
                 logoLocation="/shibboleth-sp/logo.png"
                 styleSheet="/shibboleth-sp/main.css"/>
         
-        <MetadataProvider 
-            type="XML" 
-            uri="https://ds{{ test_federation }}.aaf.edu.au/distribution/metadata/metadata.aaf.signed.minimal.xml"
-            backingFilePath="metadata.aaf{{ test_federation }}.xml" reloadInterval="7200">
+        {% for provider in shibboleth['providers'] %}
+        {% set metadata_provider = shibboleth_providers[provider]['metadataProvider'] %}
+        <MetadataProvider
+            type="XML"
+            uri="{{ metadata_provider['uri'] }}"
+            backingFilePath="{{ metadata_provider['backingFilePath'] }}"
+            legacyOrgNames="true"
+            reloadInterval="7200">
             <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
-            <MetadataFilter type="Signature" certificate="aaf-metadata-cert{{ test_federation }}.pem"/>
+            <MetadataFilter type="Signature" certificate="{{ shibboleth_providers[provider]['certificate']['name'] }}"/>
         </MetadataProvider>
+        {% endfor %}
 
         <!-- Map to extract attributes from SAML assertions. -->
-        <AttributeExtractor type="XML" validate="true" path="attribute-map.xml" />
+        <AttributeExtractor type="XML" validate="true" path="attribute-map.xml" reloadChanges="true"/>
         
         <!-- Use a SAML query if no attributes are supplied during SSO. -->
         <AttributeResolver type="Query" subjectMatch="true"/>
