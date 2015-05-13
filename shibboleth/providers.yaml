@@ -12,16 +12,15 @@ aaf:
   discoveryURL: https://ds.aaf.edu.au/discovery/DS
   metadataProvider:
     uri: https://ds.aaf.edu.au/distribution/metadata/metadata.aaf.signed.minimal.xml
-    backingFilePath: metadata.aaf.test.xml
+    backingFilePath: metadata.aaf.xml
 
+# Australian Access Federation Test
 aaf-test:
   certificate:
     name: /etc/shibboleth/aaf-metadata-cert.test.pem
     source: https://ds.test.aaf.edu.au/distribution/metadata/aaf-metadata-cert.pem
     source_hash: sha256=76edfa8d311887a7eceee3ccbb68166a61e6301037c89e5cdf4915af372ec546
-
   discoveryURL: https://ds.test.aaf.edu.au/discovery/DS
-
   metadataProvider:
     uri: https://ds.test.aaf.edu.au/distribution/metadata/metadata.aaf.signed.minimal.xml
     backingFilePath: metadata.aaf.test.xml
@@ -32,21 +31,18 @@ tuakiri:
     name: /etc/shibboleth/tuakiri-metadata-cert.pem
     source: https://directory.tuakiri.ac.nz/metadata/tuakiri-metadata-cert.pem
     source_hash: sha256=79d6a335da320bccd9db221b52589180c1303d95e0ce488994b8187a7a449149
-
   discoveryURL: https://directory.tuakiri.ac.nz/ds/DS
-
   metadataProvider:
     uri: https://directory.tuakiri.ac.nz/metadata/tuakiri-metadata-signed.xml
     backingFilePath: metadata.tuakiri.xml
 
+#Tuakiri Test
 tuakiri-test:
   certificate:
     name: /etc/shibboleth/tuakiri-metadata-cert.test.pem
     source: https://directory.test.tuakiri.ac.nz/metadata/tuakiri-test-metadata-cert.pem
     source_hash: sha256=258a2997434cc04a420d05d80cb375116a558a6549066a7700f802c76d4472ce
-
   discoveryURL: https://directory.test.tuakiri.ac.nz/ds/DS
-
   metadataProvider:
     uri: https://directory.test.tuakiri.ac.nz/metadata/tuakiri-test-metadata-signed.xml
     backingFilePath: metadata.tuakiri.test.xml
