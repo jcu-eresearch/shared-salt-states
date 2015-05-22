@@ -52,7 +52,7 @@
             {# Use single discoveryURL setting if present, or first
              Shibboleth provider if not. #}
             <SSO discoveryProtocol="SAMLDS"
-                discoveryURL="{{ shibboleth['discoveryURL'] if 'discoveryURL' in shibboleth else providers[shibboleth['providers'][0]]['discoveryURL'] }}">
+                discoveryURL="{{ shibboleth['discoveryURL'] if 'discoveryURL' in shibboleth else shibboleth_providers[shibboleth['providers'][0]]['discoveryURL'] }}">
               SAML2 SAML1
             </SSO>
 
