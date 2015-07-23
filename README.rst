@@ -22,7 +22,7 @@ Instructions
 
 * You may wish to configure your submodule to point to the SSH push URL for the
   repository.
-  
+
 Using "standalone"
 ------------------
 
@@ -35,10 +35,8 @@ features a minimalistic Salt configuration and how to quickly get started.
 Todo
 ----
 
-* Custom repository configuration prevents installation via Salt for our custom
-  packages of Shibboleth, Nginx and Supervisor. These need to be manually
-  installed until we can update to Salt 2014.1.0 (which is also borked for
-  iptables configuration).
+* Change all absolute includes to relative once Salt 2015.8 gets released
+  (see https://github.com/saltstack/salt/pull/25578)
 * SSH configuration for port 8822 only, password auth off
 * Upgrade to support RHEL 7
 * Support IP tables via state, stop multiple iptables entries being added into
