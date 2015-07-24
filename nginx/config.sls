@@ -14,7 +14,7 @@ include:
     - source: {{ config['config'] }}
     - user: root
     - group: root
-    - mode: 644
+    - mode: 400
     - template: jinja
     - watch_in:
       - service: nginx

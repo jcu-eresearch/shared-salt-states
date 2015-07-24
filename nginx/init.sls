@@ -9,6 +9,20 @@ nginx-repository:
     - gpgcheck: 0
     - enabled: 1
 
+/etc/nginx/ssl:
+  file.directory:
+    - makedirs: true
+    - user: root
+    - group: root
+    - mode: 400
+
+openssl dhparam:
+  cmd.run:
+    - name: openssl dhparam -out /etc/nginx/ssl/dhparam.pem 4096
+    - require:
+      - file: /etc/nginx/ssl
+    - unless: test -f /etc/nginx/ssl/dhparam.pem
+
 nginx:
   pkg.installed:
     - require:
@@ -20,12 +34,13 @@ nginx:
       - pkg: nginx
   file.managed:
     - name: /etc/nginx/nginx.conf
-    - source: salt://jcu/nginx/nginx.conf 
+    - source: salt://jcu/nginx/nginx.conf
     - user: root
     - group: root
-    - mode: 644
+    - mode: 400
     - template: jinja
     - require:
+      - cmd: openssl dhparam
       - pkg: nginx
     - watch_in:
       - service: nginx
@@ -44,8 +59,8 @@ nginx snippets and base configuration:
     - source: salt://jcu/nginx/conf.d
     - user: root
     - group: root
-    - dir_mode: 755
-    - file_mode: 644
+    - dir_mode: 400
+    - file_mode: 400
     - require:
       - pkg: nginx
     - watch_in:
@@ -57,8 +72,8 @@ nginx error resources:
     - source: salt://jcu/nginx/errors
     - user: root
     - group: root
-    - dir_mode: 755
-    - file_mode: 644
+    - dir_mode: 400
+    - file_mode: 400
     - template: jinja
     - require:
       - pkg: nginx
