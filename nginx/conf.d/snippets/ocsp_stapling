@@ -1,0 +1,2 @@
+ssl_stapling on;
+ssl_stapling_verify on;
