@@ -1,5 +1,6 @@
 {% from "jcu/shibboleth/providers.yaml" import shibboleth_providers with context %}
 {% set shibboleth = pillar['shibboleth'] %}
+{% set chosen_providers = shibboleth.get('providers', ['aaf']) %}
 <SPConfig xmlns="urn:mace:shibboleth:2.0:native:sp:config"
     xmlns:conf="urn:mace:shibboleth:2.0:native:sp:config"
     xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
@@ -52,14 +53,14 @@
             {# Use single discoveryURL setting if present, or first
              Shibboleth provider if not. #}
             <SSO discoveryProtocol="SAMLDS"
-                discoveryURL="{{ shibboleth['discoveryURL'] if 'discoveryURL' in shibboleth else shibboleth_providers[shibboleth['providers'][0]]['discoveryURL'] }}">
+                discoveryURL="{{ shibboleth['discoveryURL'] if 'discoveryURL' in shibboleth else shibboleth_providers[chosen_providers[0]]['discoveryURL'] }}">
               SAML2 SAML1
             </SSO>
 
             <!-- SAML and local-only logout. -->
             <Logout>SAML2 Local</Logout>
 
-            {% for provider in shibboleth['providers'] %}
+            {% for provider in chosen_providers %}
             <SessionInitiator type="Chaining" Location="/ds-{{ provider }}" id="ds-{{ provider }}" relayState="cookie">
                 <SessionInitiator type="SAML2" acsIndex="1" template="bindingTemplate.html"/>
                 <SessionInitiator type="Shib1" acsIndex="5"/>
@@ -90,7 +91,7 @@
                 logoLocation="/shibboleth-sp/logo.png"
                 styleSheet="/shibboleth-sp/main.css"/>
         
-        {% for provider in shibboleth['providers'] %}
+        {% for provider in chosen_providers %}
         {% set metadata_provider = shibboleth_providers[provider]['metadataProvider'] %}
         <MetadataProvider
             type="XML"
