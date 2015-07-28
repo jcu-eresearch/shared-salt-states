@@ -1,4 +1,4 @@
-{% set nginx = pillar['nginx'] %}
+{% set nginx = pillar.get('nginx', {}) %}
 {% set email = nginx.get('contact-email', 'eresearch@jcu.edu.au') %}
 <!DOCTYPE html>
 <html lang="en">
