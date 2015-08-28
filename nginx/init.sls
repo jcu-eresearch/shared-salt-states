@@ -5,7 +5,7 @@ nginx-repository:
   pkgrepo.managed:
     - name: nginx
     - humanname: nginx repo
-    - baseurl: http://nginx.org/packages/{{ 'centos' if grains['os'] == 'CentOS' else 'rhel' }}/{{ grains['osmajorrelease'] }}/$basearch/ 
+    - baseurl: http://nginx.org/packages/{{ 'centos' if grains['os'] == 'CentOS' else 'rhel' }}/{{ grains['osmajorrelease'] }}/$basearch/
     - gpgcheck: 0
     - enabled: 1
 
@@ -18,7 +18,11 @@ nginx-repository:
 
 openssl dhparam:
   cmd.run:
+{% if grains.get('insecure_encryption', False) %}
+    - name: openssl dhparam -out /etc/nginx/ssl/dhparam.pem 64
+{% else %}
     - name: openssl dhparam -out /etc/nginx/ssl/dhparam.pem 4096
+{% endif %}
     - require:
       - file: /etc/nginx/ssl
     - unless: test -f /etc/nginx/ssl/dhparam.pem
