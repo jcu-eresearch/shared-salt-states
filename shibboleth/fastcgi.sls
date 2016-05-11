@@ -13,13 +13,21 @@ extend:
     pkg:
       - require:
         - pkgrepo: jcu-eresearch
-        - pkgrepo: Shibboleth package repository 
+        - pkgrepo: Shibboleth package repository
 
   # Prevent updating new shibboleth version with non-FastCGI package
   Shibboleth package repository:
     pkgrepo:
       - priority: 2
       - exclude: shibboleth shibboleth-devel shibboleth-debuginfo
+
+nginx-module-shib:
+  pkg.installed:
+    - require:
+      - pkgrepo: jcu-eresearch
+      - pkg: nginx
+    - watch_in:
+      - service: nginx
 
 Shibboleth Nginx config:
   file.recurse:
@@ -30,6 +38,7 @@ Shibboleth Nginx config:
     - dir_mode: 755
     - file_mode: 644
     - require:
+      - pkg: nginx-module-shib
       - file: nginx snippets and base configuration
     - watch_in:
       - service: nginx
