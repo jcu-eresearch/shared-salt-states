@@ -27,6 +27,14 @@ nrpe:
 ksh:
   pkg.installed
 
+nagios plugins:
+  pkg.installed:
+    - pkgs:
+      - nagios-plugins-load
+      - nagios-plugins-disk
+      - nagios-plugins-ntp
+      - nagios-plugins-file_age
+
 custom nagios plugins:
   file.recurse:
     - name: /usr/local/lib/nagios/plugins
@@ -48,6 +56,7 @@ nrpe configuration:
     - template: jinja
     - require:
       - pkg: nrpe
+      - pkg: nagios plugins
       - file: custom nagios plugins
     - watch_in:
       - service: nrpe
