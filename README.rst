@@ -10,11 +10,12 @@ to expand this to other OSs, grains should be used to switch on the current OS.
 Instructions
 ------------
 
-* These Salt states require a minimum version of ``v2015.2.0rc1``.
+* These Salt states require a minimum version of ``v2016.11.3``.
 
 * States will typically be kept in lock-step with the latest appropriate
   version of Salt, as and when Salt versions are released (and our code is
-  updated accordingly).
+  updated accordingly).  You can find versions with compatibility for
+  older versions of Salt in the Git history.
 
 * Clone this repo into your ``salt/roots/salt`` folder::
 
@@ -38,6 +39,5 @@ Todo
 * Change all absolute includes to relative once Salt 2015.8 gets released
   (see https://github.com/saltstack/salt/pull/25578)
 * SSH configuration for port 8822 only, password auth off
-* Upgrade to support RHEL 7
 * Support IP tables via state, stop multiple iptables entries being added into
   /etc/sysconfig/iptables
