@@ -26,7 +26,7 @@ PostgreSQL92 Init DB:
 pgdg-92 yum update -y:
   cmd.run:
     - name: yum update -y
-    - user: root
+    - runas: root
     - require:
       - pkg: pgdg-92
 
