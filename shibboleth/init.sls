@@ -8,7 +8,7 @@ include:
 # For base packages
 Shibboleth package repository:
    pkgrepo.managed:
-      - name: security_shibboleth 
+      - name: security_shibboleth
       - humanname: Shibboleth
       - gpgcheck: 1
       - enabled: 1
@@ -28,7 +28,7 @@ shibboleth:
    pkg.installed:
       - refresh: true
       - require:
-         - pkgrepo: Shibboleth package repository 
+         - pkgrepo: Shibboleth package repository
          - service: ntp
    service.running:
       - name: shibd
@@ -119,12 +119,12 @@ shibboleth identity:
 shibboleth identity creation:
   cmd.run:
     - name: >
-        /etc/shibboleth/keygen.sh -o /etc/shibboleth/ 
+        /etc/shibboleth/keygen.sh -o /etc/shibboleth/
         -u '{{ shibboleth_user }}'
         -g '{{ shibboleth_group }}'
         -h '{{ pillar['shibboleth']['host'] }}'
         -e '{{ pillar['shibboleth']['entityID'] }}'
-    - unless: test -r /etc/shibboleth/sp-cert.pem || test -r /etc/shibboleth/sp-key.pem 
+    - unless: test -r /etc/shibboleth/sp-cert.pem || test -r /etc/shibboleth/sp-key.pem
     - require:
       - pkg: shibboleth
 
