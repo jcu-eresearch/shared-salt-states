@@ -73,6 +73,3 @@ nrpe firewall configuration:
     - save: True
     - require:
       - file: nrpe configuration
-  grains.present:
-    - name: nrpe-firewall-configuration
-    - value: applied
