@@ -5,7 +5,7 @@ include:
 supervisord socket directory nrpe chgrp:
   file.directory:
     - name: /var/run/supervisor
-    - group: nagios
+    - group: nrpe
     - require:
       - pkg: supervisor
       - pkg: nrpe
@@ -15,6 +15,6 @@ supervisor socket nrpe chmod:
     - name: /var/run/supervisor/supervisor.sock
     - mode: 770
     - user: root
-    - group: nagios
+    - group: nrpe
     - require:
       - file: supervisord socket directory nrpe chgrp
