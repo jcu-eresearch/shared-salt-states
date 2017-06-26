@@ -1,0 +1,2 @@
+mariadb:
+  pkg.installed
