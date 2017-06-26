@@ -3,13 +3,13 @@ include:
   - jcu.php.fpm
 
 extend:
-  php-fpm:
+  nginx:
     pkg.installed:
-      - require_in:
-        - pkg: nginx
+      - require:
+        - pkg: php-fpm
     service.running:
-      - watch_in:
-        - service: nginx
+      - watch:
+        - service: php-fpm
 
 php nginx configuration snippets:
   file.recurse:
