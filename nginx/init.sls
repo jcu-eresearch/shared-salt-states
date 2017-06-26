@@ -34,6 +34,8 @@ nginx:
   service.running:
     - enable: True
     - reload: True
+    - require:
+      - pkg: nginx
     - watch:
       - pkg: nginx
   file.managed:

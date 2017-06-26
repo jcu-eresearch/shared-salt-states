@@ -7,6 +7,8 @@ httpd:
   service:
     - running
     - enable: True
+    - require:
+      - pkg: httpd
     - watch:
       - pkg: httpd
 
