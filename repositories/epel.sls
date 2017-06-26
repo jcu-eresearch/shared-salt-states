@@ -2,10 +2,11 @@
 epel:
   pkg.installed:
     - name: epel-release
+  {% if grains['osfinger'] == 'Red Hat Enterprise Linux Server-7' %}
     - sources:
-  {% if grains['osmajorrelease'] == '7' %}
       - epel-release: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-  {% elif grains['osmajorrelease'] == '6' %}
+  {% elif grains['osfinger'] == 'Red Hat Enterprise Linux Server-6' %}
+    - sources:
       - epel-release: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
   {% endif %}
 {% endif %}
