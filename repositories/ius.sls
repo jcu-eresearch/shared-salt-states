@@ -11,6 +11,7 @@ ius:
     - name: ius-release
     - require:
       - pkg: epel
+    - unless: rpm -q ius-release
     - sources:
     {% if grains['osfinger'] == 'Red Hat Enterprise Linux Server-7' %}
       - ius-release: https://rhel7.iuscommunity.org/ius-release.rpm
@@ -22,4 +23,3 @@ ius:
       - ius-release: https://centos6.iuscommunity.org/ius-release.rpm
   {% endif %}
 {% endif %}
-
