@@ -13,6 +13,7 @@ supervisord socket directory nrpe chgrp:
 supervisor socket nrpe chmod:
   file.managed:
     - name: /var/run/supervisor/supervisor.sock
+    - replace: false
     - mode: 770
     - user: root
     - group: nrpe
