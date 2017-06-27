@@ -11,6 +11,6 @@ install passenger:
 install nginx-module:
   cmd.wait:
     - name: /usr/local/bin/passenger-install-nginx-module --auto --auto-download --prefix=/opt/nginx
-    - watch:
+    - onchanges:
       - cmd: install passenger
     - unless: test -d /opt/nginx

@@ -21,7 +21,7 @@ nrpe:
   service.running:
     - enable: True
     - full_restart: True
-    - watch:
+    - onchanges:
       - pkg: nrpe
 
 ksh:
@@ -58,7 +58,7 @@ nrpe configuration:
       - pkg: nrpe
       - pkg: nagios plugins
       - file: custom nagios plugins
-    - watch_in:
+    - onchanges_in:
       - service: nrpe
 
 nrpe firewall configuration:

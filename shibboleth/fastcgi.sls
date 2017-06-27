@@ -26,7 +26,7 @@ nginx-module-shib:
     - require:
       - pkgrepo: jcu-eresearch
       - pkg: nginx
-    - watch_in:
+    - onchanges_in:
       - service: nginx
 
 Shibboleth Nginx config:
@@ -40,7 +40,7 @@ Shibboleth Nginx config:
     - require:
       - pkg: nginx-module-shib
       - file: nginx snippets and base configuration
-    - watch_in:
+    - onchanges_in:
       - service: nginx
 
 # Manage FastCGI applications
@@ -60,7 +60,7 @@ shibboleth fastcgi:
     - require:
       - pkg: nginx
       - pkg: shibboleth
-    - watch_in:
+    - onchanges_in:
       - service: nginx
 
 /etc/supervisord.d/shibboleth-fastcgi.ini:
@@ -73,14 +73,14 @@ shibboleth fastcgi:
       - user: shibboleth fastcgi
       - pkg: supervisor
       - file: shibboleth fastcgi
-    - watch_in:
+    - onchanges_in:
       - service: supervisord
 
 shibauthorizer:
   supervisord.running:
     - update: true
     - restart: true
-    - watch:
+    - onchanges:
       - file: /etc/supervisord.d/shibboleth-fastcgi.ini
       - service: supervisord
 
@@ -88,6 +88,6 @@ shibresponder:
   supervisord.running:
     - update: true
     - restart: true
-    - watch:
+    - onchanges:
       - file: /etc/supervisord.d/shibboleth-fastcgi.ini
       - service: supervisord

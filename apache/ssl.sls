@@ -1,14 +1,17 @@
 mod_ssl:
   pkg.installed:
-    - watch_in:
+    - onchanges_in:
       - service: httpd
 
 mod_ssl add to firewall:
-  module.wait:
-    - name: iptables.insert
+  iptables.insert:
     - table: filter
-    - chain: INPUT
     - position: 3
-    - rule: -p tcp --dport 443 -j ACCEPT
-    - watch_in:
-      - module: save httpd iptables
+    - chain: INPUT
+    - jump: ACCEPT
+    - proto: tcp
+    - dport: 443
+    - save: true
+    - require:
+      - service: httpd
+

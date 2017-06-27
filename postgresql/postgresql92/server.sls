@@ -20,7 +20,7 @@ PostgreSQL92 Init DB:
 {% else %}
     - name: service postgresql-9.2 initdb
 {% endif %}
-    - watch:
+    - onchanges:
       - pkg: Install PostgreSQL92 Server Packages
 
 pgdg-92 yum update -y:
@@ -44,6 +44,6 @@ postgresql-9.2:
   service:
     - running
     - enable: True
-    - watch:
+    - onchanges:
       - cmd: PostgreSQL92 Init DB
       - file: /var/lib/pgsql/9.2/data/pg_hba.conf

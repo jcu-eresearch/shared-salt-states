@@ -8,7 +8,7 @@ extend:
       - require:
         - pkg: php-fpm
     service.running:
-      - watch:
+      - onchanges:
         - service: php-fpm
 
 php nginx configuration snippets:

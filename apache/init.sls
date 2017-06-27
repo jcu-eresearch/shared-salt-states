@@ -4,26 +4,22 @@ include:
 httpd:
   pkg.installed:
     - name: httpd
-  service:
-    - running
-    - enable: True
+  service.running:
+    - enable: true
+    - reload: true
     - require:
       - pkg: httpd
-    - watch:
+    - onchanges:
       - pkg: httpd
 
 httpd add to firewall:
-  module.wait:
-    - name: iptables.insert
+  iptables.insert:
     - table: filter
-    - chain: INPUT
     - position: 3
-    - rule: -p tcp --dport 80 -j ACCEPT
-    - watch_in:
-      - module: save httpd iptables
-
-save httpd iptables:
-  module.run:
-    - name: iptables.save
-    - filename: /etc/sysconfig/iptables
-
+    - chain: INPUT
+    - jump: ACCEPT
+    - proto: tcp
+    - dport: 80
+    - save: true
+    - require:
+      - service: httpd

@@ -37,7 +37,7 @@ python_2_7 decompress:
   cmd.wait:
     - name: tar -xf Python-{{ version }}.tgz
     - cwd: /tmp/
-    - watch:
+    - onchanges:
       - cmd: python_2_7 source
     - unless: test -d /tmp/Python-{{ version }}
 
@@ -47,7 +47,7 @@ python_2_7 configure:
     - cwd: /tmp/Python-{{ version }}/
     - require:
       - pkg: python_2_7 package dependencies
-    - watch: 
+    - onchanges:
       - cmd: python_2_7 decompress
     - unless: test -x /usr/local/bin/python2.7
 
@@ -55,7 +55,7 @@ python_2_7:
   cmd.wait:
     - name: make && make altinstall
     - cwd: /tmp/Python-{{ version }}/
-    - watch:
+    - onchanges:
       - cmd: python_2_7 configure
     - unless: test -x /usr/local/bin/python2.7
 

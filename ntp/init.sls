@@ -11,5 +11,5 @@ ntp:
     - reload: True
     - require:
       - pkg: ntp
-    - watch:
+    - onchanges:
       - pkg: ntp

@@ -13,5 +13,5 @@ Accept GIT attributes on SSH:
     - enable: True
     - reload: True
     - unless: test -d /vagrant
-    - watch:
+    - onchanges:
       - file: Accept GIT attributes on SSH

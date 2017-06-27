@@ -1,8 +1,7 @@
 yum-cron:
-  pkg:
-    - installed
+  pkg.installed: []
   service.running:
     - enable: True
     - reload: True
-    - watch:
+    - onchanges:
       - pkg: yum-cron

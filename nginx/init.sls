@@ -36,7 +36,7 @@ nginx:
     - reload: True
     - require:
       - pkg: nginx
-    - watch:
+    - onchanges:
       - pkg: nginx
   file.managed:
     - name: /etc/nginx/nginx.conf
@@ -48,7 +48,7 @@ nginx:
     - require:
       - cmd: openssl dhparam
       - pkg: nginx
-    - watch_in:
+    - onchanges_in:
       - service: nginx
 
 # Remove default files
@@ -69,7 +69,7 @@ nginx snippets and base configuration:
     - file_mode: 400
     - require:
       - pkg: nginx
-    - watch_in:
+    - onchanges_in:
       - service: nginx
 
 nginx error resources:

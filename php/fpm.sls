@@ -1,7 +1,7 @@
 php-fpm:
-  pkg:
-    - installed
+  pkg.installed: []
   service.running:
-    - enable: True
-    - watch:
+    - enable: true
+    - reload: true
+    - onchanges:
       - pkg: php-fpm
