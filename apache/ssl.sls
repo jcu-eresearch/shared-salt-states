@@ -1,6 +1,6 @@
 mod_ssl:
   pkg.installed:
-    - onchanges_in:
+    - watch_in:
       - service: httpd
 
 mod_ssl add to firewall:

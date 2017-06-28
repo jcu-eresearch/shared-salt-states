@@ -9,7 +9,7 @@ httpd:
     - reload: true
     - require:
       - pkg: httpd
-    - onchanges:
+    - watch:
       - pkg: httpd
 
 httpd add to firewall:

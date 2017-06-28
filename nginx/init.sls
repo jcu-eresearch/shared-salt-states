@@ -33,10 +33,9 @@ nginx:
       - pkgrepo: nginx-repository
   service.running:
     - enable: True
-    - reload: True
     - require:
       - pkg: nginx
-    - onchanges:
+    - watch:
       - pkg: nginx
   file.managed:
     - name: /etc/nginx/nginx.conf
@@ -48,7 +47,7 @@ nginx:
     - require:
       - cmd: openssl dhparam
       - pkg: nginx
-    - onchanges_in:
+    - watch_in:
       - service: nginx
 
 # Remove default files
@@ -69,7 +68,7 @@ nginx snippets and base configuration:
     - file_mode: 400
     - require:
       - pkg: nginx
-    - onchanges_in:
+    - watch_in:
       - service: nginx
 
 nginx error resources:

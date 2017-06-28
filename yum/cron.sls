@@ -3,5 +3,5 @@ yum-cron:
   service.running:
     - enable: True
     - reload: True
-    - onchanges:
+    - watch:
       - pkg: yum-cron

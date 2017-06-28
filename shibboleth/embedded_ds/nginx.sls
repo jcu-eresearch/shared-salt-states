@@ -12,6 +12,6 @@ Shibboleth DS Nginx snippet:
     - file_mode: 644
     - require:
       - pkg: nginx
-    - onchanges_in:
+    - watch_in:
       - service: nginx
 

@@ -16,7 +16,7 @@ include:
     - group: root
     - mode: 400
     - template: jinja
-    - onchanges_in:
+    - watch_in:
       - service: nginx
 
 {{ host }} ssl certificate:
@@ -29,7 +29,7 @@ include:
     - contents_pillar: 'nginx:certificate'
     - require:
       - pkg: nginx
-    - onchanges_in:
+    - watch_in:
       - service: nginx
 
 {{ host }} ssl key:
@@ -42,7 +42,7 @@ include:
     - contents_pillar: 'nginx:key'
     - require:
       - pkg: nginx
-    - onchanges_in:
+    - watch_in:
       - service: nginx
 
 {% endfor %}

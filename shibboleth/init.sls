@@ -67,7 +67,7 @@ shibboleth configuration:
       - pkg: shibboleth
       - file: shibboleth identity
       - file: /etc/shibboleth/attribute-map.xml
-    - onchanges_in:
+    - watch_in:
       - service: shibboleth
 
 /etc/shibboleth/attribute-map.xml:
@@ -78,7 +78,7 @@ shibboleth configuration:
     - mode: 644
     - require:
       - pkg: shibboleth
-    - onchanges_in:
+    - watch_in:
       - service: shibboleth
 
 /usr/share/shibboleth/logo.png:

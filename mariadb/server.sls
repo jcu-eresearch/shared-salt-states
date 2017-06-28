@@ -4,5 +4,5 @@ mariadb-server:
     - name: mariadb
     - enable: true
     - reload: true
-    - onchanges:
+    - watch:
       - pkg: mariadb-server
