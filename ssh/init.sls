@@ -14,7 +14,7 @@
     - user: {{ ssh_user }}
     - group: {{ ssh_group }}
     - mode: 644
-    - contents_pillar: 'ssh:public_key'
+    - contents_pillar: 'ssh:id_rsa.pub'
     - require:
       - file: /etc/ssh_keys
 
@@ -24,6 +24,6 @@
     - user: {{ ssh_user }}
     - user: {{ ssh_group }}
     - mode: 600
-    - contents_pillar: 'ssh:private_key'
+    - contents_pillar: 'ssh:id_rsa'
     - require:
       - file: /etc/ssh_keys/id_rsa.pub
