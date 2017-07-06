@@ -33,6 +33,7 @@ nginx:
       - pkgrepo: nginx-repository
   service.running:
     - enable: True
+    - restart: True
     - require:
       - pkg: nginx
     - watch:
@@ -47,7 +48,7 @@ nginx:
     - require:
       - cmd: openssl dhparam
       - pkg: nginx
-    - watch_in:
+    - listen_in:
       - service: nginx
 
 # Remove default files
@@ -68,7 +69,7 @@ nginx snippets and base configuration:
     - file_mode: 400
     - require:
       - pkg: nginx
-    - watch_in:
+    - listen_in:
       - service: nginx
 
 nginx error resources:

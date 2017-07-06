@@ -58,7 +58,7 @@ nrpe configuration:
       - pkg: nrpe
       - pkg: nagios plugins
       - file: custom nagios plugins
-    - watch_in:
+    - listen_in:
       - service: nrpe
 
 nrpe firewall configuration:

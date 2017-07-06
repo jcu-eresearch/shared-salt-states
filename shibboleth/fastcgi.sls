@@ -40,7 +40,7 @@ Shibboleth Nginx config:
     - require:
       - pkg: nginx-module-shib
       - file: nginx snippets and base configuration
-    - watch_in:
+    - listen_in:
       - service: nginx
 
 # Manage FastCGI applications
@@ -73,7 +73,7 @@ shibboleth fastcgi:
       - user: shibboleth fastcgi
       - pkg: supervisor
       - file: shibboleth fastcgi
-    - watch_in:
+    - listen_in:
       - service: supervisord
 
 shibauthorizer:
