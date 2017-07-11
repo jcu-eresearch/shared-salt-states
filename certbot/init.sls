@@ -14,11 +14,12 @@ certbot configuration:
     - require:
       - pkg: certbot
 
+# Certbot recommends picking 2 random minutes each hour to run
 certbot cron:
   cron.present:
     - name: certbot renew
     - identifier: SALT_CERTBOT_RENEW
     - user: root
-    - minute: 22,52
+    - minute: {{ salt['pillar.get']('certbot:renewal_minutes', (22, 52))|join(',') }}
     - require:
       - pkg: certbot
