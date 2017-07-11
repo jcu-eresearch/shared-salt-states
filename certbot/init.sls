@@ -10,6 +10,7 @@ certbot configuration:
   file.managed:
     - name: /etc/letsencrypt/cli.ini
     - source: salt://jcu/certbot/cli.ini
+    - makedirs: True
     - template: jinja
     - require:
       - pkg: certbot
