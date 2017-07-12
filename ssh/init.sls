@@ -22,7 +22,7 @@
   file.managed:
     - makedirs: true
     - user: {{ ssh_user }}
-    - user: {{ ssh_group }}
+    - group: {{ ssh_group }}
     - mode: 600
     - contents_pillar: 'ssh:id_rsa'
     - require:
