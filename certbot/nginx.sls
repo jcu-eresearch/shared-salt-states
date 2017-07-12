@@ -11,7 +11,7 @@ python2-certbot-nginx:
 
 certbot nginx:
   cmd.run:
-    - name: certbot --nginx -n
+    - name: certbot --nginx --non-interactive
     - require:
       - pkg: python2-certbot-nginx
       - file: certbot configuration
