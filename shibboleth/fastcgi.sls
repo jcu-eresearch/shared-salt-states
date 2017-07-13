@@ -29,20 +29,6 @@ nginx-module-shib:
     - watch_in:
       - service: nginx
 
-Shibboleth Nginx config:
-  file.recurse:
-    - name: /etc/nginx/conf.d/snippets
-    - source: salt://jcu/shibboleth/nginx/snippets
-    - user: root
-    - group: root
-    - dir_mode: 755
-    - file_mode: 644
-    - require:
-      - pkg: nginx-module-shib
-      - file: nginx snippets and base configuration
-    - listen_in:
-      - service: nginx
-
 # Manage FastCGI applications
 shibboleth fastcgi:
   file.directory:
@@ -91,3 +77,20 @@ shibresponder:
     - watch:
       - file: /etc/supervisord.d/shibboleth-fastcgi.ini
       - service: supervisord
+
+Shibboleth nginx config:
+  file.recurse:
+    - name: /etc/nginx/conf.d/snippets
+    - source: salt://jcu/shibboleth/nginx/snippets
+    - user: root
+    - group: root
+    - dir_mode: 755
+    - file_mode: 644
+    - require:
+      - pkg: nginx-module-shib
+      - file: nginx snippets and base configuration
+      - supervisord: shibauthorizer
+      - supervisord: shibresponder
+    - listen_in:
+      - service: nginx
+

@@ -42,13 +42,19 @@ manually.
 
 
 If you're taking a walk on the wild side and want to integrate Shibboleth
-with your Nginx instance, you use use the ``.fastcgi`` state to configure
-a full Nginx instance with FastCGI authorizer support, install the
+with your nginx instance, you use use the ``.fastcgi`` state to configure
+a full nginx instance with FastCGI authorizer support, install the
 Shibboleth FastCGI version, configure authorizer and responder applications
 and wire it all together.  Use this instead of the include above::
 
    include:
       - jcu.shibboleth.fastcgi
+
+In order to run in the correct order, you'll usually want to use the following
+``require`` statement to declare your dependency on Shibboleth::
+
+    - require:
+      - file: Shibboleth nginx config
 
 
 Configuration
