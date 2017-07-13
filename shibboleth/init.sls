@@ -14,8 +14,8 @@ Shibboleth package repository:
       - enabled: 1
 {% if grains['os_family'] == 'RedHat' %}
   {% if grains['osmajorrelease'] in ('5', '7') %}
-      - baseurl: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-{{ grains['osmajorrelease'] }}/
-      - gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-{{ grains['osmajorrelease'] }}/repodata/repomd.xml.key
+      - baseurl: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_{{ grains['osmajorrelease'] }}/
+      - gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_{{ grains['osmajorrelease'] }}/repodata/repomd.xml.key
   {% elif grains['osmajorrelease'] == '6' %}
       - baseurl: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/
       - gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/repodata/repomd.xml.key
