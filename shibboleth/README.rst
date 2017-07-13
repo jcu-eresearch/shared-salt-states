@@ -75,16 +75,28 @@ https://github.com/espaces/espaces-deployment/blob/master/salt/roots/pillar/base
 .
 
 Providers are the top-level identifiers specified in the ``providers.yaml``
-file located in this directory.  This currently supports AAF and Tuakiri and
-their test federations.  If ``providers`` is not specified, AAF production
-will be configured.
+file located in this directory (accessible at
+`https://github.com/jcu-eresearch/shared-salt-states/blob/master/shibboleth/providers.yaml`_).
+This currently supports AAF and Tuakiri and their test federations.  If
+``providers`` is not specified, AAF production will be configured as the sole
+provider.
+
+If ``certificate`` and ``key`` are omitted from the Pillar, the Salt state
+will automatically create one for you within ``/etc/shibboleth/sp-cert.pem``
+and ``/etc/shibboleth/sp-key.pem`` respectively.  The state will not
+regenerate a certificate and key if they already exist but similarly, if
+either of these files is missing, they will be recreated.  In short, this is a
+safe for deployment to production as files will not be overwritten, but
+provides flexibility to keep a consistent copy on the Salt master for use in
+development to avoid regeneration (and thus Service Provider (SP)
+re-registration with your federation registry).
 
 Federation registry settings
 ----------------------------
 
-When using this set of Salt states with one federation, the default Service
-Provider (SP) configuration given to you by your federation registry should be
-sufficient to see your service configured correctly.
+When using this set of Salt states with one federation, the default SP
+configuration given to you by your federation registry should be sufficient to
+see your service configured correctly.
 
 In the case of use with multiple federations, you'll need to modify your SP's
 settings in the given federation registry accordingly.  Specifically, the only
