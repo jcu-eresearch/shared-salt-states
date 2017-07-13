@@ -50,12 +50,11 @@ and wire it all together.  Use this instead of the include above::
    include:
       - jcu.shibboleth.fastcgi
 
-In order to run in the correct order, you'll usually want to use the following
-``require`` statement to declare your dependency on Shibboleth::
+In order to run in the correct order, you'll typically need to use the
+following ``require`` statement to declare your dependency on Shibboleth::
 
     - require:
       - file: Shibboleth nginx config
-
 
 Configuration
 -------------
