@@ -122,8 +122,8 @@ shibboleth identity creation:
         /etc/shibboleth/keygen.sh -o /etc/shibboleth/
         -u '{{ shibboleth_user }}'
         -g '{{ shibboleth_group }}'
-        -h '{{ pillar['shibboleth']['host'] }}'
-        -e '{{ pillar['shibboleth']['entityID'] }}'
+        -h '{{ salt['pillar.get']('shibboleth:host', 'localhost') }}'
+        -e '{{ salt['pillar.get']('shibboleth:entityID', 'https://sp.example.org') }}'
     - unless: test -r /etc/shibboleth/sp-cert.pem || test -r /etc/shibboleth/sp-key.pem
     - require:
       - pkg: shibboleth
