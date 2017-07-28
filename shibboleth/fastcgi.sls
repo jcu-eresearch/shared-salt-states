@@ -2,7 +2,8 @@ include:
   - jcu.shibboleth
   - jcu.repositories.eresearch
   - jcu.supervisord
-  - jcu.nginx.custom
+  - jcu.nginx
+  - jcu.nginx.modules.shibboleth
 
 {% set shibboleth_user = salt['pillar.get']('shibboleth:user', 'shibd') %}
 {% set shibboleth_group = salt['pillar.get']('shibboleth:group', 'shibd') %}
@@ -20,14 +21,6 @@ extend:
     pkgrepo:
       - priority: 2
       - exclude: shibboleth shibboleth-devel shibboleth-debuginfo
-
-nginx-module-shib:
-  pkg.installed:
-    - require:
-      - pkgrepo: jcu-eresearch
-      - pkg: nginx
-    - watch_in:
-      - service: nginx
 
 # Manage FastCGI applications
 shibboleth fastcgi:
@@ -87,7 +80,7 @@ Shibboleth nginx config:
     - dir_mode: 755
     - file_mode: 644
     - require:
-      - pkg: nginx-module-shib
+      - pkg: nginx-module-shibboleth
       - file: nginx snippets and base configuration
       - supervisord: shibauthorizer
       - supervisord: shibresponder

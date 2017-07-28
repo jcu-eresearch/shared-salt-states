@@ -1,6 +1,6 @@
 include:
+  - jcu.nginx
   - jcu.shibboleth
-  - jcu.nginx.custom
 
 Shibboleth DS Nginx snippet:
   file.managed:
@@ -12,6 +12,7 @@ Shibboleth DS Nginx snippet:
     - file_mode: 644
     - require:
       - pkg: nginx
+      - pkg: shibboleth
     - listen_in:
       - service: nginx
 

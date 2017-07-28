@@ -38,7 +38,7 @@ manually.
 ::
 
    include:
-      - jcu.shibboleth
+    - jcu.shibboleth
 
 
 If you're taking a walk on the wild side and want to integrate Shibboleth
