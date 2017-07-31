@@ -26,7 +26,7 @@ python_2_7 install dependencies:
 
 python_2_7 source:
   cmd.run:
-    - name: wget http://python.org/ftp/python/{{ version }}/Python-{{ version }}.tgz
+    - name: wget https://python.org/ftp/python/{{ version }}/Python-{{ version }}.tgz
     - cwd: /tmp/
     - require:
       - pkg: python_2_7 install dependencies

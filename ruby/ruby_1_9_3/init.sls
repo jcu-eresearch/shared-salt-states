@@ -21,7 +21,7 @@ install ruby_1_9_3 package dependencies:
 
 ruby_1_9_3 source:
   cmd.run:
-    - name: wget http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p448.tar.gz
+    - name: wget https://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p448.tar.gz
     - cwd: /tmp/
     # Don't do this if ruby1.9.3 is already installed
     - unless: test -f /tmp/ruby-1.9.3-p448.tar.gz
