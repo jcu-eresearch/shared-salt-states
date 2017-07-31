@@ -1,39 +1,34 @@
 {% set nginx = pillar.get('nginx', {}) %}
-{% set email = nginx.get('contact-email', 'eresearch@jcu.edu.au') %}
+{% set email = nginx.get('contact-email') %}
+{% set url = 'mailto:' + email if email else nginx.get('contact-url', 'https://www.jcu.edu.au/helpdesk') %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>{{ nginx.get('service-name', 'JCU eResearch Services')}}</title>
-    <base href="/_errors/" />
-    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap-responsive.min.css">
+  <meta charset="utf-8">
+  <base href="/_errors/" />
+  <title>{{ nginx.get('service-name', 'JCU eResearch Services')}}</title>
+  <link rel="stylesheet" href="https://cdn.web.jcu.io/1.0.0-beta.1/css/jcu.min.css" integrity="sha384-yvalFRKl+0g0tWrYJQwXPaf4oRFo9hOu7BssvfScVX9wdvvA+NjYtnAFm3sqP7LF" crossorigin="anonymous">
 </head>
-<body>
+<body class="jcu-content p-t-2">
 
-<header>
-    <div class="container" style="margin: 2em auto;">
-	<div class="row">
-	    <img src="logo.png" />
-	</div>
-    </div>
+<header class="container m-b-2">
+  <img src="logo.svg">
 </header>
-<section>
-    <div class="container">
-	<div class="hero-unit">
-	<h1>We'll be right back!</h1>
-	<p class="lead">{{ nginx.get('service-name', 'This service') }} is currently down for brief system maintenance.</p>
-	</div>
-    </div>
+<section class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">
+      We'll be right back!
+    </h1>
+    <p class="lead m-b-0">
+      {{ nginx.get('service-name', 'This service') }} is currently down for brief system maintenance.
+    </p>
+  </div>
 </section>
 
-<section>
-    <div class="container">
-	<div class="row">
-	    <p>If you've got any questions, get in touch with us at <a href="mailto:{{ email }}">{{ email }}</a>.</p>
-	</div>
-    </div>
+<section class="container">
+  <p>
+    If you have any questions, get in touch with us at <a href="{{ url }}">{{ email or url }}</a> and quote your URL.
+  </p>
 </section>
-
 </body>
 </html>
-
