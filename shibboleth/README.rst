@@ -77,7 +77,8 @@ configuration to make things happen.  Configuration options are like this::
 
 and these should be placed into your pillar data. For a worked example, see
 https://github.com/espaces/espaces-deployment/blob/master/salt/roots/pillar/base.sls#L40
-.
+.  The ``host:`` key is used to generate the server Shibboleth
+encryption/signing certificate.
 
 Providers are the top-level identifiers specified in the ``providers.yaml``
 file located in this directory (accessible at
