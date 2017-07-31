@@ -6,24 +6,24 @@
 # Australian Access Federation
 aaf:
   certificate:
-    name: /etc/shibboleth/aaf-metadata-cert.pem
-    source: https://ds.aaf.edu.au/distribution/metadata/aaf-metadata-cert.pem
-    source_hash: sha256=18de1f447181033c2b91726919f51d21214f36bb450eb5988d3ebb19cd2e9ec5 
+    name: /etc/shibboleth/aaf-metadata-certificate.pem
+    source: https://md.aaf.edu.au/aaf-metadata-certificate.pem
+    source_hash: sha256=00ec963039ca877b7111db3188d3d646e071c4c84ab8201fc35ad62a77ffa1a1
   discoveryURL: https://ds.aaf.edu.au/discovery/DS
   metadataProvider:
-    uri: https://ds.aaf.edu.au/distribution/metadata/metadata.aaf.signed.minimal.xml
-    backingFilePath: metadata.aaf.xml
+    uri: https://md.aaf.edu.au/aaf-metadata.xml
+    backingFilePath: aaf-metadata.xml
 
 # Australian Access Federation Test
 aaf-test:
   certificate:
-    name: /etc/shibboleth/aaf-metadata-cert.test.pem
-    source: https://ds.test.aaf.edu.au/distribution/metadata/aaf-metadata-cert.pem
-    source_hash: sha256=76edfa8d311887a7eceee3ccbb68166a61e6301037c89e5cdf4915af372ec546
-  discoveryURL: https://ds.test.aaf.edu.au/discovery/DS
+    name: /etc/shibboleth/aaf-metadata-certificate.pem
+    source: https://md.aaf.edu.au/aaf-metadata-certificate.pem
+    source_hash: sha256=00ec963039ca877b7111db3188d3d646e071c4c84ab8201fc35ad62a77ffa1a1
+  discoveryURL: https://md.test.aaf.edu.au/discovery/DS
   metadataProvider:
-    uri: https://ds.test.aaf.edu.au/distribution/metadata/metadata.aaf.signed.minimal.xml
-    backingFilePath: metadata.aaf.test.xml
+    uri: https://md.test.aaf.edu.au/aaf-test-metadata.xml
+    backingFilePath: aaf-test-metadata.xml
 
 #Tuakiri (New Zeland Access Federation)
 tuakiri:
