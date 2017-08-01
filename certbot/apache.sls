@@ -14,6 +14,7 @@ certbot apache:
     - require:
       - pkg: python2-certbot-apache
       - file: certbot configuration
-      - service: httpd
     - require_in:
       - cron: certbot cron
+    - watch_in:
+      - service: httpd

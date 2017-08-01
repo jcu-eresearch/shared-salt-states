@@ -15,6 +15,7 @@ certbot nginx:
     - require:
       - pkg: python2-certbot-nginx
       - file: certbot configuration
-      - service: nginx
     - require_in:
       - cron: certbot cron
+    - watch_in:
+      - service: nginx
