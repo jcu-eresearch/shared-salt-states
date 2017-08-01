@@ -20,7 +20,7 @@ aaf-test:
     name: /etc/shibboleth/aaf-metadata-certificate.pem
     source: https://md.aaf.edu.au/aaf-metadata-certificate.pem
     source_hash: sha256=00ec963039ca877b7111db3188d3d646e071c4c84ab8201fc35ad62a77ffa1a1
-  discoveryURL: https://md.test.aaf.edu.au/discovery/DS
+  discoveryURL: https://ds.test.aaf.edu.au/discovery/DS
   metadataProvider:
     uri: https://md.test.aaf.edu.au/aaf-test-metadata.xml
     backingFilePath: aaf-test-metadata.xml
