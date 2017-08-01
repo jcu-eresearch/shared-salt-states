@@ -29,6 +29,7 @@
     <ApplicationDefaults id="default"
                          policyId="default" 
                          entityID="{{ shibboleth['entityID'] }}"
+                         homeURL="{{ shibboleth.get('homeURL', '') }}"
                          REMOTE_USER="{{ shibboleth.get('REMOTE_USER', 'eppn persistent-id targeted-id') }}">
 
         <!--
@@ -128,6 +129,13 @@
         <!--
         <ApplicationOverride id="admin" entityID="https://admin.example.org/shibboleth"/>
         -->
+        {% for id, app_values in shibboleth['applicationOverrides'].items() %}
+        <ApplicationOverride id="{{ id }}"
+          {% for key, value in app_values.items() %}
+            {{ key }}="{{ value }}"
+          {% endfor %}
+        />
+        {% endfor %}
 
     </ApplicationDefaults>
     
