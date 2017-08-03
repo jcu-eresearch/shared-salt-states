@@ -1,6 +1,7 @@
 include:
   - jcu.firewall.web
   - .repo
+  - .modules.headersmore
 
 /etc/nginx/ssl:
   file.directory:
@@ -76,6 +77,7 @@ nginx error resources:
     - template: jinja
     - require:
       - pkg: nginx
+      - pkg: nginx-module-headersmore
 
 # Firewall configuration
 extend:
