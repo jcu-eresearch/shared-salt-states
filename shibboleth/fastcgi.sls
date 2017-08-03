@@ -5,8 +5,8 @@ include:
   - jcu.nginx
   - jcu.nginx.modules.shibboleth
 
-{% set shibboleth_user = salt.pillar.get('shibboleth:user', 'shibd') %}
-{% set shibboleth_group = salt.pillar.get('shibboleth:group', 'shibd') %}
+{% set shibboleth_user = salt['pillar.get']('shibboleth:user', 'shibd') %}
+{% set shibboleth_group = salt['pillar.get']('shibboleth:group', 'shibd') %}
 
 extend:
   # Install customised version supporting FastCGI

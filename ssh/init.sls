@@ -1,5 +1,5 @@
-{% set ssh_user = salt.pillar.get('ssh:user', 'root') %}
-{% set ssh_group = salt.pillar.get('ssh:group', 'root') %}
+{% set ssh_user = salt['pillar.get']('ssh:user', 'root') %}
+{% set ssh_group = salt['pillar.get']('ssh:group', 'root') %}
 
 /etc/ssh_keys:
   file.directory:
