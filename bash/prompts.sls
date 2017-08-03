@@ -23,6 +23,6 @@ root user coloured prompt:
       - file: {{ user_id }} user bashrc
 {% endmacro %}
 
-{% for user in salt['pillar.get']('bash:users') %}
+{% for user in salt.pillar.get('bash:users') %}
 {{ user_coloured_prompt(user) }}
 {% endfor %}

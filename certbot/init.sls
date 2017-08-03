@@ -21,7 +21,7 @@ certbot cron:
     - name: certbot renew --quiet --non-interactive
     - identifier: SALT_CERTBOT_RENEW
     - user: root
-    - minute: {{ salt['pillar.get']('certbot:renewal_minute', 52) }}
-    - hour: {{ salt['pillar.get']('certbot:renewal_hours', (4, 20))|join(',') }}
+    - minute: {{ salt.pillar.get('certbot:renewal_minute', 52) }}
+    - hour: {{ salt.pillar.get('certbot:renewal_hours', (4, 20))|join(',') }}
     - require:
       - pkg: certbot

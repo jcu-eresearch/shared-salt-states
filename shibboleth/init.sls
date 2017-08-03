@@ -1,8 +1,8 @@
 include:
   - jcu.ntp
 
-{% set shibboleth_user = salt['pillar.get']('shibboleth:user', 'shibd') %}
-{% set shibboleth_group = salt['pillar.get']('shibboleth:group', 'shibd') %}
+{% set shibboleth_user = salt.pillar.get('shibboleth:user', 'shibd') %}
+{% set shibboleth_group = salt.pillar.get('shibboleth:group', 'shibd') %}
 
 {# Use a special case for RHEL 6; Salt returns a tuple. #}
 # For base packages
@@ -36,7 +36,7 @@ shibboleth:
 
 # For any configured providers, download the provider certificates
 {% from "jcu/shibboleth/providers.yaml" import shibboleth_providers with context %}
-{% for provider in salt['pillar.get']('shibboleth:providers', ['aaf']) %}
+{% for provider in salt.pillar.get('shibboleth:providers', ['aaf']) %}
 {% set cert_metadata = shibboleth_providers[provider]['certificate'] %}
 shibboleth {{ provider }} certificate:
   file.managed:
@@ -89,7 +89,7 @@ shibboleth configuration:
       - pkg: shibboleth
 
 # Generate identity, or manage identity files (if provided)
-{% if salt['pillar.get']('shibboleth:certificate', '') %}
+{% if salt.pillar.get('shibboleth:certificate', '') %}
 shibboleth certificate:
   file.managed:
     - name: /etc/shibboleth/sp-cert.pem
@@ -120,8 +120,8 @@ shibboleth identity creation:
         /etc/shibboleth/keygen.sh -o /etc/shibboleth/
         -u '{{ shibboleth_user }}'
         -g '{{ shibboleth_group }}'
-        -h '{{ salt['pillar.get']('shibboleth:host', 'localhost') }}'
-        -e '{{ salt['pillar.get']('shibboleth:entityID', 'https://sp.example.org') }}'
+        -h '{{ salt.pillar.get('shibboleth:host', 'localhost') }}'
+        -e '{{ salt.pillar.get('shibboleth:entityID', 'https://sp.example.org') }}'
     - unless: test -r /etc/shibboleth/sp-cert.pem || test -r /etc/shibboleth/sp-key.pem
     - require:
       - pkg: shibboleth
