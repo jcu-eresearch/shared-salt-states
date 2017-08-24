@@ -1,6 +1,7 @@
 include:
   - jcu.firewall.web
   - .repo
+  - .modules.headersmore
 
 /etc/nginx/ssl:
   file.directory:
@@ -71,11 +72,12 @@ nginx error resources:
     - source: salt://jcu/nginx/errors
     - user: root
     - group: root
-    - dir_mode: 400
-    - file_mode: 400
+    - dir_mode: 555
+    - file_mode: 444
     - template: jinja
     - require:
       - pkg: nginx
+      - pkg: nginx-module-headersmore
 
 # Firewall configuration
 extend:
