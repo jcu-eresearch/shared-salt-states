@@ -77,7 +77,7 @@ nginx error resources:
     - template: jinja
     - require:
       - pkg: nginx
-      - pkg: nginx-module-headersmore
+      - sls: jcu.nginx.modules.headersmore
 
 # Firewall configuration
 extend:
