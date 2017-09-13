@@ -80,7 +80,7 @@ Shibboleth nginx config:
     - dir_mode: 755
     - file_mode: 644
     - require:
-      - pkg: nginx-module-shibboleth
+      - sls: jcu.nginx.modules.shibboleth
       - file: nginx snippets and base configuration
       - supervisord: shibauthorizer
       - supervisord: shibresponder

@@ -1,6 +1,6 @@
 #Note that existing Python installations will not be upgraded unless the old
 #interpreter is removed.
-{% set version = '2.7.9' %}
+{% set version = '2.7.13' %}
 
 include:
   - jcu.development_tools
@@ -16,7 +16,7 @@ python_2_7 package dependencies:
       - readline-devel
       - tk-devel
     - require:
-      - module: Development Tools
+      - pkg: Development Tools
 
 # Starts a chain of events which results in the altinstall of python to /usr/local
 python_2_7 install dependencies:
