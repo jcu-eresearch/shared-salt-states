@@ -1,3 +1,6 @@
+# TODO: Adjust SELinux permissions if Certbot doesn't address
+# https://github.com/certbot/certbot/issues/4716
+
 include:
   - jcu.repositories.epel
   - jcu.nginx
