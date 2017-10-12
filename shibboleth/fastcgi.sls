@@ -62,6 +62,8 @@ shibauthorizer:
     - watch:
       - file: /etc/supervisord.d/shibboleth-fastcgi.ini
       - service: supervisord
+    - listen:
+      - service: shibboleth
 
 shibresponder:
   supervisord.running:
@@ -70,6 +72,8 @@ shibresponder:
     - watch:
       - file: /etc/supervisord.d/shibboleth-fastcgi.ini
       - service: supervisord
+    - listen:
+      - service: shibboleth
 
 Shibboleth nginx config:
   file.recurse:
