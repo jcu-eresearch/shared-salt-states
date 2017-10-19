@@ -7,6 +7,7 @@ include:
 
 {% set shibboleth_user = salt['pillar.get']('shibboleth:user', 'shibd') %}
 {% set shibboleth_group = salt['pillar.get']('shibboleth:group', 'shibd') %}
+{% set selinux = salt['grains.get']('selinux:enabled') %}
 
 extend:
   # Install customised version supporting FastCGI
@@ -41,6 +42,12 @@ shibboleth fastcgi:
       - pkg: shibboleth
     - watch_in:
       - service: nginx
+  {% if selinux %}
+  cmd.run:
+    - name: semanage fcontext -a -t httpd_var_run_t "/opt/shibboleth(/.*)?" && restorecon -Rv /opt/shibboleth
+    - require:
+      - file: shibboleth fastcgi
+  {% endif %}
 
 /etc/supervisord.d/shibboleth-fastcgi.ini:
   file.managed:
@@ -52,6 +59,9 @@ shibboleth fastcgi:
       - user: shibboleth fastcgi
       - pkg: supervisor
       - file: shibboleth fastcgi
+    {% if selinux %}
+      - cmd: shibboleth fastcgi
+    {% endif %}
     - listen_in:
       - service: supervisord
 
@@ -90,4 +100,3 @@ Shibboleth nginx config:
       - supervisord: shibresponder
     - listen_in:
       - service: nginx
-
