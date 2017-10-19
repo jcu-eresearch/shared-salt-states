@@ -5,9 +5,9 @@ include:
 jcu-eresearch:
   pkgrepo.managed:
     - humanname: JCU eResearch EL Custom Repo
-    {% if grains['osmajorrelease'] == '7' %}
+    {% if grains['osmajorrelease']|int == 7 %}
     - baseurl: https://www.hpc.jcu.edu.au/repos/jcu_eresearch/centos-7/
-    {% elif grains['osmajorrelease'] == '6' %}
+    {% elif grains['osmajorrelease']|int == 6 %}
     - baseurl: https://www.hpc.jcu.edu.au/repos/jcu_eresearch/centos-6/
     {% endif %}
     - gpgcheck: 0
