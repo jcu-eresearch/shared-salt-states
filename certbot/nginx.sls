@@ -23,11 +23,10 @@ certbot nginx:
   cmd.run:
     - name: {{ certbot_cmd }} --nginx --non-interactive
     - require:
+      - service: nginx
       {% if is_packaged %}
       - pkg: python2-certbot-nginx
       {% endif %}
       - file: certbot configuration
     - require_in:
       - cron: certbot cron
-    - watch_in:
-      - service: nginx
