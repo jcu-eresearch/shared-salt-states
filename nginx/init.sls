@@ -2,6 +2,9 @@ include:
   - jcu.firewall.web
   - .repo
   - .modules.headersmore
+  {% if grains['os_family'] == 'RedHat' %}
+  - jcu.yum.versionlock
+  {% endif %}
 
 /etc/nginx/ssl:
   file.directory:
@@ -23,6 +26,15 @@ openssl dhparam:
 
 nginx:
   pkg.installed:
+  {% if grains['os_family'] == 'RedHat' %}
+    {% if grains['osmajorrelease']|int == 7 %}
+    - version: 1:1.12.2-1.el7_4.ngx
+    {% elif grains['osmajorrelease']|int == 6 %}
+    - version: 1:1.12.1-1.el6.ngx
+    {% endif %}
+    - hold: true
+    - update_holds: true
+  {% endif %}
     - require:
       - pkgrepo: nginx-repository
   service.running:
