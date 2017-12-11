@@ -37,6 +37,9 @@ nginx:
   {% endif %}
     - require:
       - pkgrepo: nginx-repository
+    {% if grains['os_family'] == 'RedHat' %}
+      - pkg: yum-plugin-versionlock
+    {% endif %}
   service.running:
     - enable: True
     - restart: True
