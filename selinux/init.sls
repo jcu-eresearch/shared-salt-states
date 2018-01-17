@@ -1,3 +1,3 @@
-# Enforce by default
-include:
-  - .enforce
+# Contains semanage utility
+policycoreutils-python:
+  pkg.installed

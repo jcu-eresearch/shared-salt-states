@@ -4,7 +4,6 @@ include:
 {% set shibboleth_user = salt['pillar.get']('shibboleth:user', 'shibd') %}
 {% set shibboleth_group = salt['pillar.get']('shibboleth:group', 'shibd') %}
 
-{# Use a special case for RHEL 6; Salt returns a tuple. #}
 # For base packages
 Shibboleth package repository:
    pkgrepo.managed:
@@ -13,12 +12,13 @@ Shibboleth package repository:
       - gpgcheck: 1
       - enabled: 1
 {% if grains['os_family'] == 'RedHat' %}
-  {% if grains['osmajorrelease'] in ('5', '7') %}
-      - baseurl: https://download.opensuse.org/repositories/security:/shibboleth/CentOS_{{ grains['osmajorrelease'] }}/
-      - gpgkey: https://download.opensuse.org/repositories/security:/shibboleth/CentOS_{{ grains['osmajorrelease'] }}/repodata/repomd.xml.key
-  {% elif grains['osmajorrelease'] == '6' %}
+  {# Use a special case for RHEL 6 #}
+  {% if grains['osmajorrelease']|int == 6 %}
       - baseurl: https://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/
       - gpgkey: https://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/repodata/repomd.xml.key
+  {% else %}
+      - baseurl: https://download.opensuse.org/repositories/security:/shibboleth/CentOS_{{ grains['osmajorrelease'] }}/
+      - gpgkey: https://download.opensuse.org/repositories/security:/shibboleth/CentOS_{{ grains['osmajorrelease'] }}/repodata/repomd.xml.key
   {% endif %}
 {% endif %}
 
