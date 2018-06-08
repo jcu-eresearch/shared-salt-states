@@ -30,13 +30,16 @@ nginx:
     {% if grains['osmajorrelease']|int == 7 %}
     - version: 1:1.12.2-1.el7_4.ngx
     {% elif grains['osmajorrelease']|int == 6 %}
-    - version: 1:1.12.2-1.el6.ngx
+    - version: 1.12.2-1.el6.ngx
     {% endif %}
     - hold: true
     - update_holds: true
   {% endif %}
     - require:
       - pkgrepo: nginx-repository
+    {% if grains['os_family'] == 'RedHat' %}
+      - pkg: yum-plugin-versionlock
+    {% endif %}
   service.running:
     - enable: True
     - restart: True

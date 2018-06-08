@@ -1,13 +1,16 @@
+{% set shibboleth_user = salt['pillar.get']('shibboleth:user', 'shibd') %}
+{% set shibboleth_group = salt['pillar.get']('shibboleth:group', 'shibd') %}
+{% set selinux = salt['grains.get']('selinux:enabled') %}
+
 include:
   - jcu.shibboleth
   - jcu.repositories.eresearch
   - jcu.supervisord
   - jcu.nginx
   - jcu.nginx.modules.shibboleth
-
-{% set shibboleth_user = salt['pillar.get']('shibboleth:user', 'shibd') %}
-{% set shibboleth_group = salt['pillar.get']('shibboleth:group', 'shibd') %}
-{% set selinux = salt['grains.get']('selinux:enabled') %}
+{% if selinux %}
+  - jcu.selinux
+{% endif %}
 
 extend:
   # Install customised version supporting FastCGI
@@ -46,6 +49,7 @@ shibboleth fastcgi:
   cmd.run:
     - name: semanage fcontext -a -t httpd_var_run_t "/opt/shibboleth(/.*)?" && restorecon -Rv /opt/shibboleth
     - require:
+      - pkg: policycoreutils-python
       - file: shibboleth fastcgi
   {% endif %}
 
