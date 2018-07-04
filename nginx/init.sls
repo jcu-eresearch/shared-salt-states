@@ -42,9 +42,6 @@ nginx:
     {% endif %}
   service.running:
     - enable: True
-    - restart: True
-    - require:
-      - pkg: nginx
     - watch:
       - pkg: nginx
   file.managed:

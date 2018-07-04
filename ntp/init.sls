@@ -9,7 +9,5 @@ ntp:
     - name: ntpd
     - enable: True
     - reload: True
-    - require:
-      - pkg: ntp
     - watch:
       - pkg: ntp
