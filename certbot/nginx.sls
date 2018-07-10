@@ -9,6 +9,7 @@ include:
   - jcu.repositories.epel
   - jcu.nginx
   - jcu.certbot
+  - jcu.certbot.cron
 
 {% if is_packaged %}
 # Only install this package on EL7+
