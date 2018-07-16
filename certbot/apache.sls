@@ -1,6 +1,7 @@
 include:
   - jcu.repositories.epel
   - jcu.apache
+  - jcu.certbot.cron
 
 python2-certbot-apache:
   pkg.installed:
