@@ -20,14 +20,15 @@
       Oops, sorry about that.
     </h1>
     <p class="lead m-b-0">
-      {{ nginx.get('service-name', 'This service') }} is taking too long to respond to your action. Hold tight and your previous action will complete in the background shortly.
+      {{ nginx.get('service-name', 'This service') }} is unable to respond to your action.
     </p>
   </div>
 </section>
 
 <section class="container">
   <p>
-    This may be due to your action being complex and timing out, a system issue, or too many people accessing the service at the same time.
+    This may be due to your action being complex and timing out, a bug, error or system issue, or too many people accessing the service at the same time.
+    If you were performing an action, check your system to confirm if what you were attempted has completed when the system is available again.
   </p>
   <p>
     If you have any questions, get in touch with us at <a href="{{ url }}">{{ email or url }}</a> and quote your URL.
