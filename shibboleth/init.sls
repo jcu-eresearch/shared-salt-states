@@ -25,6 +25,7 @@ Shibboleth package repository:
 shibboleth:
    pkg.installed:
       - refresh: true
+      - version: latest
       - require:
          - pkgrepo: Shibboleth package repository
          - service: ntp

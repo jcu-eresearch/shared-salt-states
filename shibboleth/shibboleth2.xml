@@ -1,11 +1,12 @@
 {% from "jcu/shibboleth/providers.yaml" import shibboleth_providers with context %}
 {% set shibboleth = pillar['shibboleth'] %}
 {% set chosen_providers = shibboleth.get('providers', ['aaf']) %}
-<SPConfig xmlns="urn:mace:shibboleth:2.0:native:sp:config"
-    xmlns:conf="urn:mace:shibboleth:2.0:native:sp:config"
-    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-    xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
-    xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+{% set version = shibboleth.get('version', '3.0') %}
+<SPConfig xmlns="urn:mace:shibboleth:{{ version }}:native:sp:config"
+    xmlns:conf="urn:mace:shibboleth:{{ version }}:native:sp:config"
+    xmlns:saml="urn:oasis:names:tc:SAML:{{ version }}:assertion"
+    xmlns:samlp="urn:oasis:names:tc:SAML:{{ version }}:protocol"
+    xmlns:md="urn:oasis:names:tc:SAML:{{ version }}:metadata"
     clockSkew="180">
 
     <RequestMapper type="Native">
@@ -27,7 +28,7 @@
     </RequestMapper>
 
     <ApplicationDefaults id="default"
-                         policyId="default" 
+                         policyId="default"
                          entityID="{{ shibboleth.get('entityID', '') }}"
                          homeURL="{{ shibboleth.get('homeURL', '') }}"
                          REMOTE_USER="{{ shibboleth.get('REMOTE_USER', 'eppn persistent-id targeted-id') }}">
@@ -41,9 +42,9 @@
         in that case. Note that while we default checkAddress to "false", this has a negative
         impact on the security of the SP. Stealing cookies/sessions is much easier with this disabled.
         -->
-        <Sessions lifetime="28800" timeout="3600" checkAddress="false" 
+        <Sessions lifetime="28800" timeout="3600" checkAddress="false"
                   relayState="ss:mem" handlerSSL="true" cookieProps="https"
-                  handlerURL="/Shibboleth.sso"> 
+                  handlerURL="/Shibboleth.sso">
 
             <!--
             Configures SSO for a default IdP. To allow for >1 IdP, remove
@@ -91,12 +92,12 @@
         <Errors supportContact="{{ shibboleth.get('supportContact', 'eresearch REPLACEWITHAT jcu.edu.au')}}"
                 logoLocation="/shibboleth-sp/logo.png"
                 styleSheet="/shibboleth-sp/main.css"/>
-        
+
         {% for provider in chosen_providers %}
         {% set metadata_provider = shibboleth_providers[provider]['metadataProvider'] %}
         <MetadataProvider
             type="XML"
-            uri="{{ metadata_provider['uri'] }}"
+            url="{{ metadata_provider.get('url') or metadata_provider.get('uri') }}"
             backingFilePath="{{ metadata_provider['backingFilePath'] }}"
             legacyOrgNames="true"
             reloadInterval="7200">
@@ -107,7 +108,7 @@
 
         <!-- Map to extract attributes from SAML assertions. -->
         <AttributeExtractor type="XML" validate="true" path="attribute-map.xml" reloadChanges="true"/>
-        
+
         <!-- Use a SAML query if no attributes are supplied during SSO. -->
         <AttributeResolver type="Query" subjectMatch="true"/>
 
@@ -122,7 +123,7 @@
         the https://spaces.internet2.edu/display/SHIB2/NativeSPApplicationOverride topic).
         Resource requests are mapped by web server commands, or the RequestMapper, to an
         applicationId setting.
-        
+
         Example of a second application (for a second vhost) that has a different entityID.
         Resources on the vhost would map to an applicationId of "admin":
         -->
@@ -138,12 +139,11 @@
         {% endfor %}
 
     </ApplicationDefaults>
-    
+
     <!-- Policies that determine how to process and authenticate runtime messages. -->
     <SecurityPolicyProvider type="XML" validate="true" path="security-policy.xml"/>
 
     <!-- Low-level configuration about protocols and bindings available for use. -->
     <ProtocolProvider type="XML" validate="true" reloadChanges="false" path="protocols.xml"/>
-
 
 </SPConfig>
