@@ -1,6 +1,6 @@
 # RHEL 7+ is packaged; anything less isn't
 {% set is_packaged = grains['os_family'] == 'RedHat' and grains['osmajorrelease']|int >= 7 %}
-{% set certbot_cmd = 'certbot' if is_packaged else '/usr/local/bin/certbot' %}
+{% set certbot_cmd = '/usr/bin/certbot' if is_packaged else '/usr/local/bin/certbot' %}
 
 include:
   - jcu.repositories.epel
