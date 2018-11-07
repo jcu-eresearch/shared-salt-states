@@ -28,12 +28,13 @@ nginx:
   pkg.installed:
   {% if grains['os_family'] == 'RedHat' %}
     {% if grains['osmajorrelease']|int == 7 %}
-    - version: 1:1.14.0-1.el7_4.ngx
+    - version: 1.14.0-1.el7_4.ngx
     {% elif grains['osmajorrelease']|int == 6 %}
     - version: 1.14.0-1.el6.ngx
     {% endif %}
     - hold: true
     - update_holds: true
+    - ignore_epoch: true
   {% endif %}
     - require:
       - pkgrepo: nginx-repository
