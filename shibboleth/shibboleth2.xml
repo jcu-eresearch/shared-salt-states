@@ -4,9 +4,9 @@
 {% set version = shibboleth.get('version', '3.0') %}
 <SPConfig xmlns="urn:mace:shibboleth:{{ version }}:native:sp:config"
     xmlns:conf="urn:mace:shibboleth:{{ version }}:native:sp:config"
-    xmlns:saml="urn:oasis:names:tc:SAML:{{ version }}:assertion"
-    xmlns:samlp="urn:oasis:names:tc:SAML:{{ version }}:protocol"
-    xmlns:md="urn:oasis:names:tc:SAML:{{ version }}:metadata"
+    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+    xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+    xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
     clockSkew="180">
 
     <RequestMapper type="Native">
