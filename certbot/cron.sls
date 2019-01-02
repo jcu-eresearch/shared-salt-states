@@ -9,4 +9,3 @@ certbot cron PATH:
     - value: /sbin:/bin:/usr/sbin:/usr/bin
     - require_in:
       - cron: certbot cron
-
