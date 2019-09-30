@@ -7,8 +7,8 @@ nodesource:
     - unless: rpm -q nodesource-release
     - sources:
     {% if grains['osmajorrelease']|int == 7 %}
-      - nodesource-release: https://rpm.nodesource.com/pub_9.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
+      - nodesource-release: https://rpm.nodesource.com/pub_10.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
     {% elif grains['osmajorrelease']|int == 6 %}
-      - nodesource-release: https://rpm.nodesource.com/pub_9.x/el/6/x86_64/nodesource-release-el6-1.noarch.rpm
+      - nodesource-release: https://rpm.nodesource.com/pub_10.x/el/6/x86_64/nodesource-release-el6-1.noarch.rpm
     {% endif %}
 {% endif %}
