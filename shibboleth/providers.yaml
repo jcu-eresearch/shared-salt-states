@@ -11,7 +11,7 @@ aaf:
     source_hash: sha256=00ec963039ca877b7111db3188d3d646e071c4c84ab8201fc35ad62a77ffa1a1
   discoveryURL: https://ds.aaf.edu.au/discovery/DS
   metadataProvider:
-    uri: https://md.aaf.edu.au/aaf-metadata.xml
+    url: https://md.aaf.edu.au/aaf-metadata.xml
     backingFilePath: aaf-metadata.xml
 
 # Australian Access Federation Test
@@ -22,7 +22,7 @@ aaf-test:
     source_hash: sha256=00ec963039ca877b7111db3188d3d646e071c4c84ab8201fc35ad62a77ffa1a1
   discoveryURL: https://ds.test.aaf.edu.au/discovery/DS
   metadataProvider:
-    uri: https://md.test.aaf.edu.au/aaf-test-metadata.xml
+    url: https://md.test.aaf.edu.au/aaf-test-metadata.xml
     backingFilePath: aaf-test-metadata.xml
 
 #Tuakiri (New Zeland Access Federation)
@@ -33,7 +33,7 @@ tuakiri:
     source_hash: sha256=79d6a335da320bccd9db221b52589180c1303d95e0ce488994b8187a7a449149
   discoveryURL: https://directory.tuakiri.ac.nz/ds/DS
   metadataProvider:
-    uri: https://directory.tuakiri.ac.nz/metadata/tuakiri-metadata-signed.xml
+    url: https://directory.tuakiri.ac.nz/metadata/tuakiri-metadata-signed.xml
     backingFilePath: metadata.tuakiri.xml
 
 #Tuakiri Test
@@ -44,6 +44,6 @@ tuakiri-test:
     source_hash: sha256=258a2997434cc04a420d05d80cb375116a558a6549066a7700f802c76d4472ce
   discoveryURL: https://directory.test.tuakiri.ac.nz/ds/DS
   metadataProvider:
-    uri: https://directory.test.tuakiri.ac.nz/metadata/tuakiri-test-metadata-signed.xml
+    url: https://directory.test.tuakiri.ac.nz/metadata/tuakiri-test-metadata-signed.xml
     backingFilePath: metadata.tuakiri.test.xml
 {% endload %}
