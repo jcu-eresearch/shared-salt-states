@@ -28,9 +28,9 @@ nginx:
   pkg.installed:
   {% if grains['os_family'] == 'RedHat' %}
     {% if grains['osmajorrelease']|int == 7 %}
-    - version: 1.16.1-1.el7.ngx
+    - version: 1.18.0-1.el7.ngx
     {% elif grains['osmajorrelease']|int == 6 %}
-    - version: 1.16.1-1.el6.ngx
+    - version: 1.18.0-1.el6.ngx      
     {% endif %}
     - hold: true
     - update_holds: true
