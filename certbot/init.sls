@@ -14,8 +14,8 @@ certbot:
 certbot:
   file.managed:
     - name: /usr/local/bin/certbot
-    - source: https://raw.githubusercontent.com/certbot/certbot/v0.18.2/certbot-auto
-    - source_hash: sha256=cb81c3c340179182d54c2aac8fcd4ae571011ba1bc0a096564569cfffc1009ac
+    - source: https://raw.githubusercontent.com/certbot/certbot/v1.7.0/certbot-auto
+    - source_hash: sha256=ec0a39db4d0a6b68ae2bb903422b7a29deb41470ab3ebba69e7a4a703c18a7e5
     - user: root
     - group: root
     - mode: 755
