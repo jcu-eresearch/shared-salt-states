@@ -17,7 +17,7 @@ The states here perform different tasks, depending on your requirements:
 * ``php.sls`` performs an Nginx installation with dependencies on ``php-fpm``,
   the FastCGI runner required for PHP, and other resources.
 
-* ``repo.sls`` sets up the stable nginx repository for yum.
+* ``repo.sls`` sets up the stable nginx repository for packages.
 
 * ``modules/`` contains various states for installation of dynamic modules
   including custom modules like ``nginx-http-shibboleth``.

@@ -3,7 +3,7 @@ include:
   - .repo
   - .modules.headersmore
   {% if grains['os_family'] == 'RedHat' %}
-  - jcu.yum.versionlock
+  - jcu.rpm.versionlock
   {% endif %}
 
 /etc/nginx/ssl:
@@ -41,7 +41,7 @@ nginx:
     - require:
       - pkgrepo: nginx-repository
     {% if grains['os_family'] == 'RedHat' %}
-      - pkg: yum-plugin-versionlock
+      - pkg: rpm-plugin-versionlock
     {% endif %}
   service.running:
     - enable: True

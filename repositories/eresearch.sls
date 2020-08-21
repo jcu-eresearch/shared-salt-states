@@ -1,6 +1,10 @@
 {% if grains['os_family'] == 'RedHat' %}
+
+{% set protectbase = grains['osmajorrelease']|int <= 7 %}
+{% if protectbase %}
 include:
-  - jcu.yum.protectbase
+  - jcu.rpm.protectbase
+{% endif %}
 
 jcu-eresearch:
   pkgrepo.managed:
@@ -15,7 +19,9 @@ jcu-eresearch:
     - gpgcheck: 0
     - priority: 1
     - enabled: 1
+    {% if protectbase %}
     - protected: 1
     - require:
-      - pkg: yum-plugin-protectbase
+      - pkg: rpm-plugin-protectbase
+    {% endif %}
 {% endif %}
