@@ -1,0 +1,6 @@
+version: '2'
+services:
+  centos-8:
+    build: .setup/
+    volumes:
+      - .:/app

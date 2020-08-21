@@ -1,0 +1,4 @@
+grains:
+  insecure_encryption: true
+  roles:
+    - development
