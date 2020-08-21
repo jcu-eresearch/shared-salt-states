@@ -11,14 +11,20 @@ include:
   - jcu.certbot
   - jcu.certbot.cron
 
-{% if is_packaged %}
 # Only install this package on EL7+
-python2-certbot-nginx:
+{% if is_packaged %}
+python-certbot-nginx:
   pkg.installed:
+    {% if grains['osmajorrelease']|int >= 8 %}
+    - name: python3-certbot-nginx
+    {% elif grains['osmajorrelease']|int == 7 %}
+    - name: python2-certbot-nginx
+    {% endif %}
     - require:
       - pkg: epel
       - pkg: nginx
 {% endif %}
+
 
 certbot nginx:
   cmd.run:
@@ -26,7 +32,7 @@ certbot nginx:
     - require:
       - service: nginx
       {% if is_packaged %}
-      - pkg: python2-certbot-nginx
+      - pkg: python-certbot-nginx
       {% endif %}
       - file: certbot configuration
     - require_in:

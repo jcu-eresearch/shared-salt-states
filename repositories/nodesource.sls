@@ -6,8 +6,10 @@ nodesource:
     - name: nodesource-release
     - unless: rpm -q nodesource-release
     - sources:
-    {% if grains['osmajorrelease']|int == 7 %}
-      - nodesource-release: https://rpm.nodesource.com/pub_10.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
+    {% if grains['osmajorrelease']|int == 8 %}
+      - nodesource-release: https://rpm.nodesource.com/pub_14.x/el/8/x86_64/nodesource-release-el8-1.noarch.rpm
+    {% elif grains['osmajorrelease']|int == 7 %}
+      - nodesource-release: https://rpm.nodesource.com/pub_14.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
     {% elif grains['osmajorrelease']|int == 6 %}
       - nodesource-release: https://rpm.nodesource.com/pub_10.x/el/6/x86_64/nodesource-release-el6-1.noarch.rpm
     {% endif %}
