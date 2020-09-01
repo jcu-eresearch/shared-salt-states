@@ -1,3 +1,4 @@
 base:
-   '*':
-      - jcu.shibboleth.fastcgi
+  '*':
+    - jcu
+    - jcu.shibboleth.fastcgi
