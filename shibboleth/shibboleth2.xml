@@ -44,7 +44,7 @@
         -->
         <Sessions lifetime="28800" timeout="3600" checkAddress="false"
                   relayState="ss:mem" handlerSSL="true" cookieProps="https"
-                  handlerURL="/Shibboleth.sso">
+                  handlerURL="/Shibboleth.sso" redirectLimit="exact">
 
             <!--
             Configures SSO for a default IdP. To allow for >1 IdP, remove
