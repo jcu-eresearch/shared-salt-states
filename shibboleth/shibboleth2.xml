@@ -29,8 +29,8 @@
 
     <ApplicationDefaults id="default"
                          policyId="default"
-                         entityID="{{ shibboleth.get('entityID', '') }}"
-                         homeURL="{{ shibboleth.get('homeURL', '') }}"
+                         entityID="{{ shibboleth['entityID'] }}"
+                         homeURL="{{ shibboleth.get('homeURL', '/') }}"
                          REMOTE_USER="{{ shibboleth.get('REMOTE_USER', 'eppn persistent-id targeted-id') }}">
 
         <!--
