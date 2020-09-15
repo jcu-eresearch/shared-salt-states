@@ -1,5 +1,5 @@
 include:
   - .rpm.autoupdate
-  - .timezone
   - .ntp
+  - .timezone
   - .git.ssh

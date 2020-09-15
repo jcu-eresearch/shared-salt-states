@@ -17,8 +17,9 @@ Shibboleth package repository:
       - baseurl: https://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/
       - gpgkey: https://download.opensuse.org/repositories/security:/shibboleth/CentOS_CentOS-6/repodata/repomd.xml.key
   {% else %}
-      - baseurl: https://download.opensuse.org/repositories/security:/shibboleth/CentOS_{{ grains['osmajorrelease'] }}/
-      - gpgkey: https://download.opensuse.org/repositories/security:/shibboleth/CentOS_{{ grains['osmajorrelease'] }}/repodata/repomd.xml.key
+      - mirrorlist: https://shibboleth.net/cgi-bin/mirrorlist.cgi/CentOS_{{ grains['osmajorrelease'] }}
+      - gpgkey: https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.key
+      - type: rpm-md
   {% endif %}
 {% endif %}
 

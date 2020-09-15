@@ -1,0 +1,2 @@
+php-intl:
+  pkg.installed

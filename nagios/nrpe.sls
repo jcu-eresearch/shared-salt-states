@@ -1,9 +1,11 @@
 include:
   - jcu.repositories.epel
   - jcu.repositories.eresearch
-
 nrpe-plugin:
   pkg.installed:
+    {{ if grains['osmajorrelease']|int >= 8 }}
+    - name: nagios-plugins-nrpe
+    {{ endif }}
     - require:
       - pkgrepo: jcu-eresearch
 
