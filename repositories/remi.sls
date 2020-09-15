@@ -18,7 +18,7 @@ remi:
     - sources:
     {% if grains['osmajorrelease']|int == 8 %}
       - remi-release: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
-    {% if grains['osmajorrelease']|int == 7 %}
+    {% elif grains['osmajorrelease']|int == 7 %}
       - remi-release: https://rpms.remirepo.net/enterprise/remi-release-7.rpm
     {% elif grains['osmajorrelease']|int == 6 %}
       - remi-release: https://rpms.remirepo.net/enterprise/remi-release-6.rpm

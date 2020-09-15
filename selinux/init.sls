@@ -3,4 +3,9 @@
 
 # Contains semanage utility
 policycoreutils-python:
-  pkg.installed
+  pkg.installed:
+  {% if grains['os_family'] == 'RedHat' and grains['osmajorrelease']|int <= 7 %}
+    - name: policycoreutils-python
+  {% else %}
+    - name: policycoreutils-python-utils
+  {% endif %}
