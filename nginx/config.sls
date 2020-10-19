@@ -3,11 +3,11 @@
 #   hosts:
 #     my.example.org:
 #       config: salt://path/hostname.conf
-
+#       selfsignedcert: true
 include:
   - jcu.nginx
-{% for host, config in pillar['nginx']['hosts'].items() %}
 
+{% for host, config in pillar['nginx']['hosts'].items() %}
 {{ host }} web config:
   file.managed:
     - name: /etc/nginx/conf.d/{{ host }}.conf
