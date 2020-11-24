@@ -51,6 +51,7 @@ shibboleth fastcgi:
     - require:
       - pkg: policycoreutils-python
       - file: shibboleth fastcgi
+    - unless: "semanage fcontext -l | grep \"/opt/shibboleth\""
   {% endif %}
 
 /etc/supervisord.d/shibboleth-fastcgi.ini:
