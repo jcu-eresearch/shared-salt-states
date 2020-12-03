@@ -1,5 +1,6 @@
 include:
   - jcu.ntp
+  - jcu.repositories.epel
 
 {% set shibboleth_user = salt['pillar.get']('shibboleth:user', 'shibd') %}
 {% set shibboleth_group = salt['pillar.get']('shibboleth:group', 'shibd') %}
@@ -29,6 +30,7 @@ shibboleth:
       - version: latest
       - require:
          - pkgrepo: Shibboleth package repository
+         - pkg: epel
          - service: ntp
    service.running:
       - name: shibd
