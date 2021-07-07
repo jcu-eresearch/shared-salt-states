@@ -1,5 +1,5 @@
 include:
-    - jcu.repositories.epel
+  - jcu.repositories.epel
 
 supervisor:
   pkg.installed:
