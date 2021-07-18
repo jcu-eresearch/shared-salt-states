@@ -1,13 +1,19 @@
+{% if grains['os_family'] == 'RedHat' and grains['osmajorrelease']|int < 8 %}
 include:
   - jcu.development_tools
   - jcu.repositories.nodesource
+{% endif %}
 
 nodejs:
-  {% if grains['os_family'] == 'RedHat' %}
+{% if grains['os_family'] == 'RedHat' %}
   pkg.installed:
+    {% if grains['os'] == 'RedHat' and grains['osmajorrelease']|int >= 8 %}
+    - name: '@nodejs:14'
+    {% else %}
     - require:
       - pkg: nodesource
       - pkg: Development Tools
-  {% else %}
-  - pkg.installed
-  {% endif %}
+    {% endif %}
+{% else %}
+  pkg.installed
+{% endif %}

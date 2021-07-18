@@ -6,7 +6,7 @@ rvm:
     - present
   user.present:
     - fullname: rvm
-    - gid_from_name: True
+    - usergroup: True
     - home: /home/rvm
     - shell: /bin/bash
     - groups:

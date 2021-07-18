@@ -9,7 +9,7 @@ to expand this to other OSs, grains should be used to switch on the current OS.
 Instructions
 ------------
 
-* These Salt states require a minimum version of ``v2016.11.3``.
+* These Salt states require a minimum version of ``v3001``.
 
 * States will typically be kept in lock-step with the latest appropriate
   version of Salt, as and when Salt versions are released (and our code is
