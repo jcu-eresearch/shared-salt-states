@@ -1,4 +1,4 @@
-{% if grains['os_family'] == 'RedHat' and grains['osmajorrelease']|int < 8 %}
+{% if (grains['os'] == 'RedHat' and grains['osmajorrelease']|int < 8) or grains['os'] == 'CentOS' %}
 include:
   - jcu.development_tools
   - jcu.repositories.nodesource
