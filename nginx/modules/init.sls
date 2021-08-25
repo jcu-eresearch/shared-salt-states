@@ -8,7 +8,6 @@ include:
   - .xslt
 
   # Custom
-  - .ajp
   - .fancyindex
   - .headersmore
   - .authldap
