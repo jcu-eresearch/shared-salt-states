@@ -1,7 +1,6 @@
 include:
   - jcu.firewall.web
   - .repo
-  - .modules.headersmore
   {% if grains['os_family'] == 'RedHat' %}
   - jcu.rpm.versionlock
   {% endif %}
@@ -92,7 +91,6 @@ nginx error resources:
     - template: jinja
     - require:
       - pkg: nginx
-      - sls: jcu.nginx.modules.headersmore
 
 # Firewall configuration
 extend:
