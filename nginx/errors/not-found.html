@@ -7,19 +7,22 @@
   <meta charset="utf-8">
   <base href="/_errors/" />
   <title>{{ nginx.get('service-name', 'JCU eResearch Services')}}</title>
-  <link rel="stylesheet" href="https://cdn.jcu.edu.au/web-framework/1.0.0-beta.1/css/jcu.min.css" integrity="sha384-yvalFRKl+0g0tWrYJQwXPaf4oRFo9hOu7BssvfScVX9wdvvA+NjYtnAFm3sqP7LF" crossorigin="anonymous">
+  <link href="https://cdn.jcu.edu.au/cookbook/3.2.1/css/cookbook.min.css" rel="stylesheet" integrity="sha512-SQ33i2+PObnQuWZ2njxy+zKTRYFbatGrv51phXNFxkKE2tKW5zZeF6aYmIDWKx19qYk6LlQ7uf5eSc8JA2QexA==" crossorigin="anonymous">
+  <link href="https://cdn.jcu.edu.au/cookbook/3.2.1/css/fonts.min.css" rel="stylesheet" integrity="sha512-Zs0rFYewwr7t9jnNGZHTOvfgs1rq+KsnKPCgElX7AsJlawkJmfvuKlQHv8TBN++3NAvSRnEumRdFseu10KjpNQ==" crossorigin="anonymous">
 </head>
-<body class="jcu-content p-t-2">
 
-<header class="container m-b-2">
+<body class="jcu-content pt-2">
+
+<header class="container mb-2">
   <img src="logo.svg">
 </header>
+
 <section class="container">
-  <div class="jumbotron">
-    <h1 class="display-4">
+  <div class="alert alert-dark my-4">
+    <h1 class="display-3">
       Oh dear, it's a 404.
     </h1>
-    <p class="lead m-b-0">
+    <p class="lead mb-0">
       We couldn't find anything at the URL you requested on {{ nginx.get('service-name', 'this service') }}.
     </p>
   </div>
